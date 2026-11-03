@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#4f46e5">
-<title>Solicitud de desarrollo</title>
+<title>Solicitud de desarrollo · WebApps a medida</title>
 <style>
 :root{--bg:#f4f6fb;--sf:#fff;--ink:#0d1526;--mut:#5f6b7d;--ln:#e3e8f0;--ac:#4f46e5;--ac2:#7c3aed;--acSoft:rgba(79,70,229,.08);--acRing:rgba(79,70,229,.14);--ok:#0ea472;--bad:#e5484d;--warn:#f59e0b;--r:18px;--shadow:0 1px 2px rgba(16,24,40,.05),0 12px 28px -24px rgba(16,24,40,.35);--shadowLg:0 30px 60px -24px rgba(13,21,38,.35);--barBg:rgba(255,255,255,.86);--inputBg:#fff;--chipBg:rgba(79,70,229,.08);--chipInk:#3b32b5;--boxBorder:#c4ccdc;--modalBg:rgba(13,21,38,.48);--btnFrom:#4f46e5;--btnTo:#7c3aed;--btnShadow:0 10px 22px -10px rgba(79,70,229,.8);--btnShadowHover:0 14px 26px -10px rgba(79,70,229,.85)}
 [data-theme="dark"]{--bg:#0a0e17;--sf:#111827;--ink:#e8ecf3;--mut:#9aa7b8;--ln:#1f2a3a;--ac:#818cf8;--ac2:#a78bfa;--acSoft:rgba(129,140,248,.12);--acRing:rgba(129,140,248,.22);--ok:#34d399;--bad:#f87171;--warn:#fbbf24;--shadow:0 1px 2px rgba(0,0,0,.4),0 12px 28px -24px rgba(0,0,0,.7);--shadowLg:0 30px 60px -24px rgba(0,0,0,.8);--barBg:rgba(17,24,39,.86);--inputBg:#0f1723;--chipBg:rgba(129,140,248,.14);--chipInk:#c7d2fe;--boxBorder:#374151;--modalBg:rgba(0,0,0,.62);--btnFrom:#4338ca;--btnTo:#6d28d9;--btnShadow:0 10px 22px -10px rgba(67,56,202,.7);--btnShadowHover:0 14px 26px -10px rgba(67,56,202,.8)}
@@ -89,13 +89,14 @@ body{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,s
 @keyframes spin{to{transform:rotate(360deg)}}
 .modal{position:fixed;inset:0;z-index:120;display:flex;align-items:center;justify-content:center;padding:16px;background:var(--modalBg);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);opacity:0;pointer-events:none;transition:opacity .25s}
 .modal.open{opacity:1;pointer-events:auto}
-.sheet{width:min(760px,100%);max-height:88vh;overflow:auto;background:var(--sf);border-radius:22px;padding:26px;transform:translateY(20px) scale(.97);transition:transform .32s cubic-bezier(.2,.9,.25,1);box-shadow:var(--shadowLg)}
+.sheet{width:min(760px,100%);max-height:88vh;overflow:auto;background:var(--sf);border-radius:22px;padding:26px;transform:translateY(20px) scale(.97);transition:transform .32s cubic-bezier(.2,.9,.25,1);box-shadow:var(--shadowLg);position:relative}
 .modal.open .sheet{transform:none}
 .sheet.center{text-align:center;width:min(460px,100%)}
 .mhead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:6px}
 .mhead h2{font-size:19px;font-weight:750;letter-spacing:-.01em}
-.x{width:34px;height:34px;border-radius:10px;border:0;background:var(--ln);color:var(--mut);font-size:19px;cursor:pointer;transition:.2s;line-height:1}
+.x{width:34px;height:34px;border-radius:10px;border:0;background:var(--ln);color:var(--mut);font-size:19px;cursor:pointer;transition:.2s;line-height:1;display:grid;place-items:center}
 .x:hover{background:var(--boxBorder);transform:rotate(90deg)}
+.x.abs{position:absolute;top:14px;right:14px;z-index:2}
 .sub{font-size:13px;color:var(--mut)}
 .missing-list{display:flex;flex-direction:column;gap:8px;margin:18px 0;text-align:left}
 .missing-item{display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--bg);border-radius:12px;border:1px solid var(--ln)}
@@ -200,17 +201,16 @@ body{padding-bottom:20px}
 
 <script>
 const CFG={botToken:'PEGA_AQUI_TU_TOKEN_DE_BOT',chatId:'@wRedFoxw'};
-const PW=595.28,PH=841.89,MG=48;
 const DATA=[
 {id:'admon',n:'1',t:'App Administración',d:'Aplicación de escritorio para Windows',icon:'💻',items:['Gestión: Categorías, proveedores, tarjetas, monedas, locales.','Productos: Alta/edición de productos, precios e imágenes.','Compras: Entrada de mercancía y costos por proveedor.','Ventas: Lista, reportes, transferencias y turnos de caja.','Gastos: Registro y resumen de gastos operativos.','Inventario: Stock por local, mínimos, alertas y movimientos.','Usuarios: Roles, permisos y control de sesiones.','Sistema: Telegram, WhatsApp, APK y versión de la app.']},
 {id:'dep',n:'1.1',t:'Dependencias con la App Cliente',d:'Tienda online',icon:'🔗',items:['Órdenes: Pedidos online y control de sus estados.','Ofertas: Promociones con productos, precio y vencimiento.','Horarios: Apertura/cierre y modo forzado de la tienda.','Información: Slogan, contacto y enlaces del negocio.','Notificaciones: Envío de mensajes push a los clientes.','Etiquetas: Destacados, más vendidos, nuevos y en oferta.','Conexiones: Monitoreo en vivo de clientes conectados.','Analíticas: Gráficos de ventas y aceptación de productos.']},
 {id:'mode',n:'2',t:'App Cliente (Tienda Online)',d:'WebApp compatible con todos los dispositivos con navegador',icon:'🛒',mode:true},
-{id:'comun',n:'2.1',t:'Funciones comunes',d:'Aplican a cualquier modo de funcionamiento',icon:'⚙️',items:['Catálogo por categorías','Ofertas activas','Buscador','Estado abierto/cerrado','Notificaciones','Conversor de moneda (según su tasa de cambio)']},
+{id:'comun',n:'2.1',t:'Funciones comunes',d:'Aplican a cualquier modo de funcionamiento',icon:'⚙️',items:['Catálogo por categorías','Ofertas y descuentos','Buscador','Estado abierto/cerrado','Notificaciones','Conversor de moneda (según su tasa de cambio)']},
 {id:'modob',n:'2.2',t:'Modo B · Funciones adicionales',d:'Solo si eliges compras online',icon:'🚚',items:['Carrito de compras','Métodos de pago','Métodos de envío (mensajería)','Zonas de envío','Cambiar/cancelar pedido','Vinculación con Telegram']},
 {id:'integr',n:'3',t:'Integraciones opcionales',d:'',icon:'🔌',items:['Bot de Telegram (avisos de pedidos, información del negocio, notificaciones al cliente)','Descarga de APK para Android','Multi-local (varias sucursales con inventario propio)','Creación de cuentas y servicios Online con planes gratuitos (limitados)']}
 ];
 const I18N={
-es:{'hero.badge':'Propuesta de desarrollo','hero.title':'Planilla de <span>requerimientos</span>','hero.lead':'Marca las secciones que necesitas para tu aplicación. Al final podrás revisar tu solicitud, completar tus datos y enviarla al desarrollador.','review.title':'Resumen de tu solicitud','review.sub':'Revisa tu selección. Puedes volver a la planilla para modificarla o continuar con tus datos.','review.back':'← Volver a la planilla','review.next':'Continuar →','data.title':'Datos de contacto','data.sub':'Completa tus datos para enviar la solicitud al desarrollador.','data.back':'← Volver al resumen','btn.cancel':'Cerrar','btn.send':'Confirmar y enviar','mode.hint':'Elige un modo de funcionamiento','mode.a':'Modo A','mode.at':'Solo catálogo','mode.ad':'Muestra productos, precios y ofertas. El cliente contacta por WhatsApp para realizar el pedido.','mode.b':'Modo B','mode.bt':'Catálogo + compras online','mode.bd':'Incluye todo lo del Modo A más carrito de compras, pago y envío a domicilio.','sec.extra':'Peticiones del cliente','sec.extraPh':'Comentarios adicionales','wiz.back':'Atrás','wiz.next':'Siguiente','wiz.finish':'Finalizar','step.admonD':'Elige las funciones de gestión para tu app de escritorio','step.depD':'Elige qué necesita la tienda online del panel de administración','step.modeD':'Define cómo funcionará la tienda para tus clientes','step.comunD':'Funciones que tendrá la tienda en cualquier modo','step.modobD':'Funciones extra para compras online','step.integrD':'Servicios adicionales opcionales','step.extraD':'Cuéntanos cualquier detalle adicional','missing.title':'Faltan puntos obligatorios','missing.sub':'Completa lo siguiente antes de continuar:','missing.go':'Ir al paso faltante','bwHead':'Se detectaron palabras no permitidas','bwViolation':'Contiene palabras no permitidas','toast.pdf':'No se pudo generar el PDF','toast.copied':'Mensaje copiado al portapapeles','done.okTitle':'Solicitud enviada','done.okText':'Tu solicitud llegó al desarrollador por Telegram. Puedes descargar el PDF como respaldo.','done.failTitle':'Envío manual','done.failText':'No se pudo enviar automáticamente. Descarga el PDF, copia los datos o abre Telegram para enviar la solicitud al desarrollador.','done.download':'Descargar PDF','done.done':'Listo','done.openTg':'Abrir Telegram','done.copy':'Copiar datos','pdf.title':'SOLICITUD DE DESARROLLO DE WEBAPPS','pdf.sub':'Planilla de requerimientos personalizada','pdf.date':'Fecha','pdf.client':'DATOS DEL CLIENTE','pdf.name':'Nombre','pdf.wa':'WhatsApp','pdf.biz':'Negocio','pdf.mail':'Correo','pdf.mailNA':'No informado','pdf.mode':'MODO DE FUNCIONAMIENTO','pdf.modeNA':'No especificado','pdf.modeA':'Modo A - Solo catálogo (sin compras online)','pdf.modeB':'Modo B - Catálogo + mensajería a domicilio (compras online)','pdf.extra':'PETICIONES DEL CLIENTE','badWords':'Contiene palabras no permitidas','invalidMail':'Correo inválido'}, en:{'hero.badge':'Development proposal','hero.title':'Requirements <span>sheet</span>','hero.lead':'Select the sections you need for your application. At the end you can review your request, fill in your details and send it to the developer.','review.title':'Request summary','review.sub':'Review your selection. You can go back to the sheet to modify it or continue with your details.','review.back':'← Back to sheet','review.next':'Continue →','data.title':'Contact details','data.sub':'Complete your details to send the request to the developer.','data.back':'← Back to summary','btn.cancel':'Close','btn.send':'Confirm & send','mode.hint':'Choose an operating mode','mode.a':'Mode A','mode.at':'Catalog only','mode.ad':'Shows products, prices and offers. The customer contacts via WhatsApp to place the order.','mode.b':'Mode B','mode.bt':'Catalog + online purchases','mode.bd':'Includes everything from Mode A plus shopping cart, payment and home delivery.','sec.extra':'Client requests','sec.extraPh':'Additional comments','wiz.back':'Back','wiz.next':'Next','wiz.finish':'Finish','step.admonD':'Choose the management features for your desktop app','step.depD':'Choose what the online store needs from the admin panel','step.modeD':'Define how the store will work for your customers','step.comunD':'Features the store will have in any mode','step.modobD':'Extra features for online purchases','step.integrD':'Optional additional services','step.extraD':'Tell us any additional details','missing.title':'Missing required points','missing.sub':'Complete the following before continuing:','missing.go':'Go to missing step','bwHead':'Forbidden words detected','bwViolation':'Contains forbidden words','toast.pdf':'Could not generate the PDF','toast.copied':'Message copied to clipboard','done.okTitle':'Request sent','done.okText':'Your request reached the developer via Telegram. You can download the PDF as backup.','done.failTitle':'Manual send','done.failText':'Could not send automatically. Download the PDF, copy the data or open Telegram to send the request to the developer.','done.download':'Download PDF','done.done':'Done','done.openTg':'Open Telegram','done.copy':'Copy data','pdf.title':'WEBAPP DEVELOPMENT REQUEST','pdf.sub':'Customized requirements sheet','pdf.date':'Date','pdf.client':'CLIENT DATA','pdf.name':'Name','pdf.wa':'WhatsApp','pdf.biz':'Business','pdf.mail':'Email','pdf.mailNA':'Not provided','pdf.mode':'OPERATING MODE','pdf.modeNA':'Not specified','pdf.modeA':'Mode A - Catalog only (no online purchases)','pdf.modeB':'Mode B - Catalog + home delivery (online purchases)','pdf.extra':'CLIENT REQUESTS','badWords':'Contains forbidden words','invalidMail':'Invalid email'}
+es:{'hero.badge':'Propuesta de desarrollo','hero.title':'Planilla de <span>requerimientos</span>','hero.lead':'Marca las secciones que necesitas para tu aplicación. Al final podrás revisar tu solicitud, completar tus datos y enviarla al desarrollador.','review.title':'Resumen de tu solicitud','review.sub':'Revisa tu selección. Puedes volver a la planilla para modificarla o continuar con tus datos.','review.back':'← Volver a la planilla','review.next':'Continuar →','data.title':'Datos de contacto','data.sub':'Completa tus datos para enviar la solicitud al desarrollador.','data.back':'← Volver al resumen','btn.cancel':'Cerrar','btn.send':'Confirmar y enviar','mode.hint':'Elige un modo de funcionamiento','mode.a':'Modo A','mode.at':'Solo catálogo','mode.ad':'Muestra productos, precios y ofertas. El cliente contacta por WhatsApp para realizar el pedido.','mode.b':'Modo B','mode.bt':'Catálogo + compras online','mode.bd':'Incluye todo lo del Modo A más carrito de compras, pago y envío a domicilio.','sec.extra':'Peticiones del cliente','sec.extraPh':'Comentarios adicionales','wiz.back':'Atrás','wiz.next':'Siguiente','wiz.finish':'Finalizar','step.admonD':'Elige las funciones de gestión para tu app de escritorio','step.depD':'Elige qué necesita la tienda online del panel de administración','step.modeD':'Define cómo funcionará la tienda para tus clientes','step.comunD':'Funciones que tendrá la tienda en cualquier modo','step.modobD':'Funciones extra para compras online','step.integrD':'Servicios adicionales opcionales','step.extraD':'Cuéntanos cualquier detalle adicional','missing.title':'Faltan puntos obligatorios','missing.sub':'Completa lo siguiente antes de continuar:','missing.go':'Ir al paso faltante','bwHead':'Se detectaron palabras no permitidas','bwViolation':'Contiene palabras no permitidas','done.okTitle':'Solicitud enviada','done.okText':'Tu solicitud llegó al desarrollador por Telegram.','done.failTitle':'Envío manual','done.failText':'El mensaje se copió al portapapeles y se abrió Telegram. Pega el mensaje en el chat con @wRedFoxw para enviar tu solicitud.','done.openTg':'Abrir Telegram','badWords':'Contiene palabras no permitidas','invalidMail':'Correo inválido','toast.copied':'Mensaje copiado al portapapeles','toast.sent':'Solicitud enviada por Telegram'}, en:{'hero.badge':'Development proposal','hero.title':'Requirements <span>sheet</span>','hero.lead':'Select the sections you need for your application. At the end you can review your request, fill in your details and send it to the developer.','review.title':'Request summary','review.sub':'Review your selection. You can go back to the sheet to modify it or continue with your details.','review.back':'← Back to sheet','review.next':'Continue →','data.title':'Contact details','data.sub':'Complete your details to send the request to the developer.','data.back':'← Back to summary','btn.cancel':'Close','btn.send':'Confirm & send','mode.hint':'Choose an operating mode','mode.a':'Mode A','mode.at':'Catalog only','mode.ad':'Shows products, prices and offers. The customer contacts via WhatsApp to place the order.','mode.b':'Mode B','mode.bt':'Catalog + online purchases','mode.bd':'Includes everything from Mode A plus shopping cart, payment and home delivery.','sec.extra':'Client requests','sec.extraPh':'Additional comments','wiz.back':'Back','wiz.next':'Next','wiz.finish':'Finish','step.admonD':'Choose the management features for your desktop app','step.depD':'Choose what the online store needs from the admin panel','step.modeD':'Define how the store will work for your customers','step.comunD':'Features the store will have in any mode','step.modobD':'Extra features for online purchases','step.integrD':'Optional additional services','step.extraD':'Tell us any additional details','missing.title':'Missing required points','missing.sub':'Complete the following before continuing:','missing.go':'Go to missing step','bwHead':'Forbidden words detected','bwViolation':'Contains forbidden words','done.okTitle':'Request sent','done.okText':'Your request reached the developer via Telegram.','done.failTitle':'Manual send','done.failText':'The message was copied to clipboard and Telegram was opened. Paste the message in the chat with @wRedFoxw to send your request.','done.openTg':'Open Telegram','badWords':'Contains forbidden words','invalidMail':'Invalid email','toast.copied':'Message copied to clipboard','toast.sent':'Request sent via Telegram'}
 };
 const BAD=['mierda','mierdas','puta','puto','putas','putos','putita','putito','cabron','cabrona','cabrones','pendejo','pendeja','pendejos','pendejas','verga','vergudo','chinga','chingar','chingada','chingado','chingon','joder','jodete','jodido','jodida','coño','carajo','marica','maricon','gonorrea','hijueputa','hijoputa','malparido','malparida','culiao','culiada','boludo','boluda','pelotudo','pelotuda','gilipollas','imbecil','estupido','estupida','idiota','pinga','picha','pichula','cagar','cagada','cagon','cagona','mamada','mamadas','culero','culera','fuck','fucking','fucker','shit','shitty','bitch','asshole','bastard','damn','dick','pussy','cunt','whore','slut','nigger','faggot','motherfucker','retard','retarded','sonofabitch'];
 function normalize(s){return String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,' ');}
@@ -382,7 +382,7 @@ openModal('#reviewModal');
 }
 function summaryHTML(){
 let h='';
-if(state.modo)h+='<div class="sblock"><b>'+t('pdf.mode')+'</b><div class="chips"><span class="chip">'+t(state.modo==='A'?'mode.a':'mode.b')+'</span></div></div>';
+if(state.modo)h+='<div class="sblock"><b>'+t('mode.hint')+'</b><div class="chips"><span class="chip">'+t(state.modo==='A'?'mode.a':'mode.b')+'</span></div></div>';
 DATA.forEach(s=>{
 if(s.mode)return;
 const arr=state.selections[s.id]||[];
@@ -408,132 +408,55 @@ if(em.value.trim()&&!/^[^@\s]+@[^@\s]+\.[a-zA-Z]{2,}$/.test(em.value.trim())){fe
 else fe.classList.remove('err');
 return ok;
 }
-function pesc(s){
-let o='';
-for(const ch of String(s)){
-const c=ch.codePointAt(0);
-if(c<256)o+=ch;
-else if(c===0x2018||c===0x2019)o+="'";
-else if(c===0x201c||c===0x201d)o+='"';
-else if(c===0x2013||c===0x2014)o+='-';
-else if(c===0x2022)o+=String.fromCharCode(149);
-else o+='?';
-}
-return o.replace(/\\/g,'\\\\').replace(/\(/g,'\\(').replace(/\)/g,'\\)');
-}
-function wrapText(txt,size,bold){
-const maxW=PW-2*MG,cf=bold?0.56:0.5,max=Math.max(12,Math.floor(maxW/(size*cf)));
-const words=String(txt).split(/\s+/);const lines=[];let cur='';
-words.forEach(w=>{
-if((cur?cur+' '+w:w).length<=max)cur=cur?cur+' '+w:w;
-else{if(cur)lines.push(cur);cur=w;while(cur.length>max){lines.push(cur.slice(0,max));cur=cur.slice(max);}}
-});
-if(cur)lines.push(cur);
-return lines.length?lines:[''];
-}
-function makePDF(lines){
-const pages=[];let cur=[],y=PH-MG;
-lines.forEach(l=>{
-y-=l.sp||0;
-wrapText(l.t,l.s,l.b).forEach(txt=>{
-const lh=l.s*1.45;
-if(y-lh<MG){pages.push(cur);cur=[];y=PH-MG;}
-cur.push({x:MG,y:y,t:txt,s:l.s,b:l.b});
-y-=lh;
-});
-});
-if(cur.length)pages.push(cur);
-if(!pages.length)pages.push([]);
-return pagesToPdf(pages);
-}
-function pagesToPdf(pages){
-const n=pages.length,objs=[];
-objs[1]='<< /Type /Catalog /Pages 2 0 R >>';
-objs[2]='<< /Type /Pages /Kids ['+Array.from({length:n},(_,i)=>(5+2*i)+' 0 R').join(' ')+'] /Count '+n+' >>';
-objs[3]='<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>';
-objs[4]='<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>';
-for(let i=0;i<n;i++){
-const pg=pages[i],pid=5+2*i,cid=6+2*i;
-objs[pid]='<< /Type /Page /Parent 2 0 R /MediaBox [0 0 '+PW+' '+PH+'] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents '+cid+' 0 R >>';
-let s='';
-pg.forEach(l=>{s+='BT /'+(l.b?'F2':'F1')+' '+l.s+' Tf 1 0 0 1 '+l.x.toFixed(2)+' '+l.y.toFixed(2)+' Tm ('+pesc(l.t)+') Tj ET\n';});
-objs[cid]='<< /Length '+s.length+' >>\nstream\n'+s+'endstream';
-}
-let out='%PDF-1.4\n';const off=[];
-for(let i=1;i<=4+2*n;i++){off[i]=out.length;out+=i+' 0 obj\n'+objs[i]+'\nendobj\n';}
-const xr=out.length;
-out+='xref\n0 '+(5+2*n)+'\n0000000000 65535 f \n';
-for(let i=1;i<=4+2*n;i++)out+=String(off[i]).padStart(10,'0')+' 00000 n \n';
-out+='trailer\n<< /Size '+(5+2*n)+' /Root 1 0 R >>\nstartxref\n'+xr+'\n%%EOF';
-const b=new Uint8Array(out.length);
-for(let i=0;i<out.length;i++)b[i]=out.charCodeAt(i)&255;
-return b;
-}
-function buildItems(d){
-const L=[];const add=(txt,s,b,sp)=>L.push({t:txt,s:s||10,b:!!b,sp:sp||0});
-add(t('pdf.title'),16,1,0);
-add(t('pdf.sub'),9.5,0,6);
-add(t('pdf.date')+': '+new Date().toLocaleString(lang==='es'?'es-419':'en-US'),9.5,0,2);
-add(t('pdf.client'),11,1,18);
-add(t('pdf.name')+': '+d.nombre,10,0,4);
-add(t('pdf.wa')+': '+d.wa,10,0,4);
-add(t('pdf.biz')+': '+d.negocio,10,0,4);
-add(t('pdf.mail')+': '+(d.mail||t('pdf.mailNA')),10,0,4);
-add(t('pdf.mode'),11,1,18);
-add('App Cliente: '+(d.modo==='A'?t('pdf.modeA'):d.modo==='B'?t('pdf.modeB'):t('pdf.modeNA')),10,0,4);
-DATA.forEach(s=>{
-if(s.mode)return;
-const arr=d.sel[s.id]||[];
-if(!arr.length)return;
-add(s.n+'  '+s.t.toUpperCase(),11,1,18);
-arr.forEach(i=>add('[X] '+s.items[i],9.5,0,3));
-});
-if(d.extra){add(t('pdf.extra'),11,1,18);add(d.extra,10,0,4);}
-return L;
-}
 function collect(){return{nombre:$('#fname').value.trim(),wa:$('#fwa').value.trim(),negocio:$('#fbiz').value.trim(),mail:$('#fmail').value.trim(),modo:state.modo,sel:state.selections,extra:state.extra};}
+function modeText(m){return m==='A'?'Modo A — Solo catálogo':m==='B'?'Modo B — Catálogo + compras online':'No especificado';}
 function buildMessageText(d){
-let txt='📋 <b>NUEVA SOLICITUD DE DESARROLLO</b>\n\n';
-txt+='<b>👤 Cliente:</b> '+escTG(d.nombre)+'\n';
-txt+='<b>📱 WhatsApp:</b> '+escTG(d.wa)+'\n';
-txt+='<b>🏢 Negocio:</b> '+escTG(d.negocio)+'\n';
-if(d.mail)txt+='<b>📧 Correo:</b> '+escTG(d.mail)+'\n';
-txt+='\n<b>🛒 Modo:</b> '+(d.modo==='A'?'Modo A — Solo catálogo':d.modo==='B'?'Modo B — Catálogo + compras online':'No especificado')+'\n';
-txt+='\n<b>📝 Requerimientos seleccionados:</b>\n';
+const fecha=new Date().toLocaleString(lang==='es'?'es-419':'en-US');
+let txt='📅 <b>'+escTG(fecha)+'</b>\n\n';
+txt+='📋 <b>NUEVA SOLICITUD DE DESARROLLO</b>\n\n';
+txt+='👤 <b>Cliente:</b> '+escTG(d.nombre)+'\n';
+txt+='📱 <b>WhatsApp:</b> '+escTG(d.wa)+'\n';
+txt+='🏢 <b>Negocio:</b> '+escTG(d.negocio)+'\n';
+if(d.mail)txt+='📧 <b>Correo:</b> '+escTG(d.mail)+'\n';
+txt+='\n📝 <b>Requerimientos seleccionados:</b>\n';
 DATA.forEach(s=>{
-if(s.mode)return;
+if(s.mode){
+txt+='\n<b>'+escTG(s.n+' · '+s.t)+'</b>\n';
+txt+='🛒 <b>Modo:</b> '+modeText(d.modo)+'\n';
+return;
+}
 const arr=d.sel[s.id]||[];
 if(!arr.length)return;
 txt+='\n<b>'+escTG(s.n+' · '+s.t)+'</b>\n';
 arr.forEach(i=>{txt+='• '+escTG(s.items[i])+'\n';});
 });
-if(d.extra)txt+='\n<b>✍️ Peticiones del cliente:</b>\n'+escTG(d.extra)+'\n';
-txt+='\n📅 '+new Date().toLocaleString('es-419');
+if(d.extra)txt+='\n✍️ <b>Peticiones del cliente:</b>\n'+escTG(d.extra)+'\n';
 if(txt.length>4000)txt=txt.slice(0,3990)+'...';
 return txt;
 }
 function buildPlainText(d){
-let txt='NUEVA SOLICITUD DE DESARROLLO\n\n';
-txt+='Cliente: '+d.nombre+'\n';
-txt+='WhatsApp: '+d.wa+'\n';
-txt+='Negocio: '+d.negocio+'\n';
-if(d.mail)txt+='Correo: '+d.mail+'\n';
-txt+='\nModo: '+(d.modo==='A'?'Modo A — Solo catálogo':d.modo==='B'?'Modo B — Catálogo + compras online':'No especificado')+'\n';
-txt+='\nRequerimientos seleccionados:\n';
+const fecha=new Date().toLocaleString(lang==='es'?'es-419':'en-US');
+let txt='📅 '+fecha+'\n\n';
+txt+='📋 NUEVA SOLICITUD DE DESARROLLO\n\n';
+txt+='👤 Cliente: '+d.nombre+'\n';
+txt+='📱 WhatsApp: '+d.wa+'\n';
+txt+='🏢 Negocio: '+d.negocio+'\n';
+if(d.mail)txt+='📧 Correo: '+d.mail+'\n';
+txt+='\n📝 Requerimientos seleccionados:\n';
 DATA.forEach(s=>{
-if(s.mode)return;
+if(s.mode){
+txt+='\n['+s.n+' · '+s.t+']\n';
+txt+='🛒 Modo: '+modeText(d.modo)+'\n';
+return;
+}
 const arr=d.sel[s.id]||[];
 if(!arr.length)return;
 txt+='\n['+s.n+' · '+s.t+']\n';
 arr.forEach(i=>{txt+='• '+s.items[i]+'\n';});
 });
-if(d.extra)txt+='\nPeticiones del cliente:\n'+d.extra+'\n';
-txt+='\nFecha: '+new Date().toLocaleString('es-419');
+if(d.extra)txt+='\n✍️ Peticiones del cliente:\n'+d.extra+'\n';
 return txt;
 }
-function safe(s){return String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^\w\-]+/g,'_').replace(/^_+|_+$/g,'').slice(0,40)||'cliente';}
-function fileDate(){const d=new Date();const p=n=>String(n).padStart(2,'0');return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate());}
-function fileName(nombre){return 'Solicitud-'+fileDate()+'_'+safe(nombre)+'.pdf';}
 async function sendTelegramMessage(d){
 const token=CFG.botToken;
 if(!token||token.indexOf('PEGA')===0)return false;
@@ -547,36 +470,35 @@ const j=await r.json();
 return !!j.ok;
 }catch(e){return false;}
 }
-function silentDownload(blob,filename){
-const url=URL.createObjectURL(blob);
-const a=document.createElement('a');
-a.href=url;a.download=filename;a.style.display='none';
-document.body.appendChild(a);a.click();
-setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},5000);
-}
-async function copyMessage(d){
-const txt=buildPlainText(d);
+async function copyToClipboard(text){
 try{
-await navigator.clipboard.writeText(txt);
-toast(t('toast.copied'));
+await navigator.clipboard.writeText(text);
+return true;
 }catch(e){
+try{
 const ta=document.createElement('textarea');
-ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';
-document.body.appendChild(ta);ta.select();
-try{document.execCommand('copy');toast(t('toast.copied'));}catch(_){}
+ta.value=text;
+ta.style.cssText='position:fixed;top:-1000px;left:-1000px;opacity:0';
+document.body.appendChild(ta);
+ta.select();
+const ok=document.execCommand('copy');
 ta.remove();
+return ok;
+}catch(_){return false;}
 }
 }
-function showDone(kind,blob,filename,d){
-const url=URL.createObjectURL(blob);
-if(kind==='ok'){
-$('#doneModal .sheet').innerHTML='<div class="ic ok">&#10003;</div><h2>'+t('done.okTitle')+'</h2><p class="sub" style="margin-top:8px">'+t('done.okText')+'</p><div class="mfoot"><a class="btn g" href="'+url+'" download="'+filename+'">'+t('done.download')+'</a><button class="btn p" data-close>'+t('done.done')+'</button></div>';
-}else{
-$('#doneModal .sheet').innerHTML='<div class="ic warn">!</div><h2>'+t('done.failTitle')+'</h2><p class="sub" style="margin-top:8px">'+t('done.failText')+'</p><div class="mfoot"><a class="btn g" href="'+url+'" download="'+filename+'">'+t('done.download')+'</a><button class="btn g" id="copyMsgBtn">'+t('done.copy')+'</button><a class="btn p" href="https://t.me/wRedFoxw" target="_blank" rel="noopener">'+t('done.openTg')+'</a></div>';
+function showDone(kind,copyOk){
+const isOk=kind==='ok';
+const icon=isOk?'<div class="ic ok">&#10003;</div>':'<div class="ic warn">!</div>';
+const title=isOk?t('done.okTitle'):t('done.failTitle');
+const text=isOk?t('done.okText'):t('done.failText');
+let body='';
+if(isOk){body='<div class="mfoot"></div>';}
+else{
+body='<div class="mfoot"><a class="btn p" href="https://t.me/wRedFoxw" target="_blank" rel="noopener">'+t('done.openTg')+'</a></div>';
 }
+$('#doneModal .sheet').innerHTML='<button class="x abs" data-close aria-label="'+t('btn.cancel')+'">&times;</button>'+icon+'<h2>'+title+'</h2><p class="sub" style="margin-top:8px">'+text+'</p>'+body;
 openModal('#doneModal');
-const cb=document.getElementById('copyMsgBtn');
-if(cb)cb.addEventListener('click',()=>copyMessage(d));
 }
 async function doSend(){
 if(!validar())return;
@@ -584,20 +506,25 @@ const bad=findBadWords(state.extra);
 if(bad.length){toast(t('badWords'));return;}
 const btn=$('#send');
 if(btn.disabled)return;
-btn.disabled=true;btn.classList.add('load');btn.textContent=lang==='es'?'Enviando':'Sending';
+btn.disabled=true;btn.classList.add('load');btn.textContent=lang==='es'?'Enviando...':'Sending...';
 const d=collect();
-const filename=fileName(d.nombre);
-let bytes;
-try{bytes=makePDF(buildItems(d));}catch(e){btn.disabled=false;btn.classList.remove('load');btn.textContent=t('btn.send');toast(t('toast.pdf'));return;}
-const blob=new Blob([bytes],{type:'application/pdf'});
+const msgText=buildPlainText(d);
+let tgWindow=null;
+try{tgWindow=window.open('','_blank');}catch(e){tgWindow=null;}
+const copyOk=await copyToClipboard(msgText);
 const ok=await sendTelegramMessage(d);
 btn.disabled=false;btn.classList.remove('load');btn.textContent=t('btn.send');
 closeAll();
 if(ok){
-silentDownload(blob,filename);
-showDone('ok',blob,filename,d);
+if(tgWindow){try{tgWindow.close();}catch(e){}}
+showDone('ok',true);
 }else{
-showDone('fail',blob,filename,d);
+if(tgWindow){
+try{tgWindow.location.href='https://t.me/wRedFoxw';}catch(e){try{window.open('https://t.me/wRedFoxw','_blank');}catch(_){}}
+}else{
+try{window.open('https://t.me/wRedFoxw','_blank');}catch(_){}
+}
+showDone('fail',copyOk);
 }
 }
 function initTheme(){
