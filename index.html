@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#4f46e5">
+<title>Solicitud de desarrollo</title>
+<style>
+:root{--bg:#f4f6fb;--sf:#fff;--ink:#0d1526;--mut:#5f6b7d;--ln:#e3e8f0;--ac:#4f46e5;--ac2:#7c3aed;--acSoft:rgba(79,70,229,.08);--acRing:rgba(79,70,229,.14);--ok:#0ea472;--bad:#e5484d;--warn:#f59e0b;--r:18px;--shadow:0 1px 2px rgba(16,24,40,.05),0 12px 28px -24px rgba(16,24,40,.35);--shadowLg:0 30px 60px -24px rgba(13,21,38,.35);--barBg:rgba(255,255,255,.86);--inputBg:#fff;--chipBg:rgba(79,70,229,.08);--chipInk:#3b32b5;--boxBorder:#c4ccdc;--modalBg:rgba(13,21,38,.48);--btnFrom:#4f46e5;--btnTo:#7c3aed;--btnShadow:0 10px 22px -10px rgba(79,70,229,.8);--btnShadowHover:0 14px 26px -10px rgba(79,70,229,.85)}
+[data-theme="dark"]{--bg:#0a0e17;--sf:#111827;--ink:#e8ecf3;--mut:#9aa7b8;--ln:#1f2a3a;--ac:#818cf8;--ac2:#a78bfa;--acSoft:rgba(129,140,248,.12);--acRing:rgba(129,140,248,.22);--ok:#34d399;--bad:#f87171;--warn:#fbbf24;--shadow:0 1px 2px rgba(0,0,0,.4),0 12px 28px -24px rgba(0,0,0,.7);--shadowLg:0 30px 60px -24px rgba(0,0,0,.8);--barBg:rgba(17,24,39,.86);--inputBg:#0f1723;--chipBg:rgba(129,140,248,.14);--chipInk:#c7d2fe;--boxBorder:#374151;--modalBg:rgba(0,0,0,.62);--btnFrom:#4338ca;--btnTo:#6d28d9;--btnShadow:0 10px 22px -10px rgba(67,56,202,.7);--btnShadowHover:0 14px 26px -10px rgba(67,56,202,.8)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;padding-bottom:24px;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+.bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(55vw 55vw at 8% -12%,rgba(79,70,229,.12),transparent 62%),radial-gradient(45vw 45vw at 102% 2%,rgba(124,58,237,.10),transparent 60%)}
+[data-theme="dark"] .bg{background:radial-gradient(55vw 55vw at 8% -12%,rgba(129,140,248,.12),transparent 62%),radial-gradient(45vw 45vw at 102% 2%,rgba(167,139,250,.10),transparent 60%)}
+.wrap{width:min(1060px,92vw);margin:0 auto}
+.progbar{position:fixed;top:0;left:0;right:0;z-index:70;background:var(--barBg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--ln);padding:9px 0}
+.prog{width:100%;height:6px;border-radius:99px;background:var(--ln);overflow:hidden}
+.prog i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--ac),var(--ac2));transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.hero{padding:80px 0 4px;text-align:center}
+.badge{display:inline-block;font-size:12.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ac);background:var(--acSoft);padding:6px 14px;border-radius:999px}
+.hero h1{font-size:clamp(24px,4.5vw,40px);letter-spacing:-.03em;line-height:1.1;margin:14px 0 10px;font-weight:800}
+.hero h1 span{background:linear-gradient(135deg,var(--ac),var(--ac2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:var(--mut);max-width:620px;margin:0 auto;font-size:15px}
+.card{background:var(--sf);border:1px solid var(--ln);border-radius:var(--r);padding:24px;margin:18px 0;box-shadow:var(--shadow)}
+.wizard{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s cubic-bezier(.2,.8,.2,1)}
+.wizard.in{opacity:1;transform:none}
+.step-dots{display:flex;justify-content:center;gap:8px;margin-bottom:22px;flex-wrap:wrap}
+.step-dot{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;background:var(--ln);color:var(--mut);transition:.3s}
+.step-dot.done{background:var(--acSoft);color:var(--ac)}
+.step-dot.active{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff;transform:scale(1.1);box-shadow:0 0 0 4px var(--acRing)}
+.wizard-head{display:flex;gap:14px;align-items:center;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--ln);flex-wrap:wrap}
+.wizard-icon{font-size:34px;line-height:1;flex:0 0 auto;filter:drop-shadow(0 2px 4px rgba(0,0,0,.1))}
+.wizard-head > div:first-of-type{flex:1;min-width:0}
+.wizard-head h2{font-size:18px;font-weight:750;letter-spacing:-.01em}
+.wizard-head p{font-size:13.5px;color:var(--mut);margin-top:2px}
+.wizard-meta{display:flex;align-items:center;gap:10px;flex:0 0 auto}
+#face{font-size:30px;line-height:1;transition:transform .2s;display:inline-block}
+.count-badge{background:var(--acSoft);color:var(--ac);padding:5px 12px;border-radius:999px;font-size:13px;font-weight:700;min-width:38px;text-align:center;font-variant-numeric:tabular-nums}
+.wizard-body{min-height:180px}
+.wizard-nav{display:flex;justify-content:space-between;gap:10px;margin-top:24px;padding-top:20px;border-top:1px solid var(--ln)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{position:relative;display:flex;gap:11px;align-items:flex-start;padding:13px 14px;border:1.5px solid var(--ln);border-radius:13px;cursor:pointer;background:var(--sf);transition:border-color .2s,background .2s,box-shadow .2s,transform .2s;font-size:14px;user-select:none}
+.opt:hover{border-color:#c6cddc;transform:translateY(-1px)}
+[data-theme="dark"] .opt:hover{border-color:#4b5563}
+.opt input{position:absolute;opacity:0;width:0;height:0}
+.box{flex:0 0 20px;width:20px;height:20px;border:1.5px solid var(--boxBorder);border-radius:6px;display:grid;place-items:center;transition:.22s;margin-top:1px;background:var(--sf)}
+.box::after{content:"";width:5px;height:9px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg) scale(.3);opacity:0;transition:.22s;margin-top:-2px}
+.opt.on{border-color:var(--ac);background:var(--acSoft);box-shadow:0 0 0 3px var(--acRing)}
+.opt.on .box{background:linear-gradient(135deg,var(--ac),var(--ac2));border-color:transparent;transform:scale(1.06)}
+.opt.on .box::after{opacity:1;transform:rotate(45deg) scale(1)}
+.opt.on .txt{font-weight:600}
+.txt{transition:.2s}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mcard{position:relative;display:block;padding:18px;border:1.5px solid var(--ln);border-radius:14px;cursor:pointer;transition:.22s;background:var(--sf)}
+.mcard:hover{border-color:#c6cddc;transform:translateY(-2px)}
+[data-theme="dark"] .mcard:hover{border-color:#4b5563}
+.mcard input{position:absolute;opacity:0;width:0;height:0}
+.mcard b{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ac);font-weight:700}
+.mcard h3{font-size:16px;margin:6px 0;font-weight:700}
+.mcard p{font-size:13.5px;color:var(--mut)}
+.mk{position:absolute;top:16px;right:16px;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--boxBorder);transition:.22s;display:grid;place-items:center}
+.mk::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--ac);transform:scale(0);transition:.22s}
+.mcard.on{border-color:var(--ac);background:var(--acSoft);box-shadow:0 0 0 3px var(--acRing)}
+.mcard.on .mk{border-color:var(--ac)}
+.mcard.on .mk::after{transform:scale(1)}
+.hint{font-size:13px;color:var(--mut);margin:-4px 0 14px}
+.field{position:relative;margin:14px 0}
+.field input,.field textarea{width:100%;padding:17px 14px 9px;border:1.5px solid var(--ln);border-radius:12px;font:inherit;font-size:14.5px;background:var(--inputBg);color:var(--ink);outline:none;transition:.2s;resize:vertical}
+.field textarea{min-height:110px}
+.field label{position:absolute;left:13px;top:15px;font-size:14.5px;color:var(--mut);pointer-events:none;transition:.18s;background:var(--sf);padding:0 5px;border-radius:4px}
+.field input:focus,.field textarea:focus{border-color:var(--ac);box-shadow:0 0 0 3px var(--acRing)}
+.field input:focus~label,.field input:not(:placeholder-shown)~label,.field textarea:focus~label,.field textarea:not(:placeholder-shown)~label{top:-8px;font-size:11.5px;color:var(--ac);font-weight:600}
+.msg{display:none;color:var(--bad);font-size:12px;margin-top:6px;font-weight:500}
+.field.err input,.field.err textarea{border-color:var(--bad);box-shadow:0 0 0 3px rgba(229,72,77,.1)}
+.field.err .msg{display:block}
+.badword-panel{margin-top:10px;padding:12px 14px;background:rgba(229,72,77,.08);border:1px solid rgba(229,72,77,.25);border-radius:12px;animation:pop .35s cubic-bezier(.2,1.4,.4,1)}
+.bw-head{font-size:13px;font-weight:700;color:var(--bad);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.bw-head .bw-ico{font-size:16px;line-height:1}
+.bw-list{display:flex;flex-wrap:wrap;gap:6px}
+.bw-word{font-size:12.5px;padding:3px 10px;border-radius:99px;background:rgba(229,72,77,.18);color:var(--bad);font-weight:700}
+.btn{border:0;border-radius:12px;padding:13px 22px;font:inherit;font-size:14.5px;font-weight:650;cursor:pointer;transition:.22s;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;white-space:nowrap}
+.btn.p{background:linear-gradient(135deg,var(--btnFrom),var(--btnTo));color:#fff;box-shadow:var(--btnShadow)}
+.btn.p:hover{transform:translateY(-2px);box-shadow:var(--btnShadowHover)}
+.btn.g{background:var(--ln);color:var(--ink)}
+.btn.g:hover{background:var(--boxBorder)}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+.btn.load::after{content:"";width:14px;height:14px;border-radius:50%;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.modal{position:fixed;inset:0;z-index:120;display:flex;align-items:center;justify-content:center;padding:16px;background:var(--modalBg);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);opacity:0;pointer-events:none;transition:opacity .25s}
+.modal.open{opacity:1;pointer-events:auto}
+.sheet{width:min(760px,100%);max-height:88vh;overflow:auto;background:var(--sf);border-radius:22px;padding:26px;transform:translateY(20px) scale(.97);transition:transform .32s cubic-bezier(.2,.9,.25,1);box-shadow:var(--shadowLg)}
+.modal.open .sheet{transform:none}
+.sheet.center{text-align:center;width:min(460px,100%)}
+.mhead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:6px}
+.mhead h2{font-size:19px;font-weight:750;letter-spacing:-.01em}
+.x{width:34px;height:34px;border-radius:10px;border:0;background:var(--ln);color:var(--mut);font-size:19px;cursor:pointer;transition:.2s;line-height:1}
+.x:hover{background:var(--boxBorder);transform:rotate(90deg)}
+.sub{font-size:13px;color:var(--mut)}
+.missing-list{display:flex;flex-direction:column;gap:8px;margin:18px 0;text-align:left}
+.missing-item{display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--bg);border-radius:12px;border:1px solid var(--ln)}
+.mi-icon{font-size:22px;line-height:1;flex:0 0 auto}
+.mi-label{font-size:11.5px;font-weight:700;color:var(--ac);background:var(--acSoft);padding:3px 8px;border-radius:6px;flex:0 0 auto}
+.mi-title{font-size:14px;font-weight:600}
+.missing-item.violation{border-color:rgba(229,72,77,.4);background:rgba(229,72,77,.06)}
+.missing-item.violation .mi-title{color:var(--bad)}
+.missing-item.violation .mi-label{background:rgba(229,72,77,.15);color:var(--bad)}
+.sblock{margin:14px 0}
+.sblock b{display:block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mut);margin-bottom:7px}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{font-size:12.5px;padding:5px 11px;border-radius:99px;background:var(--chipBg);color:var(--chipInk);font-weight:600}
+.empty{color:var(--mut);font-size:14px;padding:14px;background:var(--bg);border-radius:12px;text-align:center}
+.mfoot{display:flex;gap:10px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+.ic{width:62px;height:62px;border-radius:50%;display:grid;place-items:center;margin:6px auto 14px;font-size:28px;font-weight:800;color:#fff}
+.ic.ok{background:linear-gradient(135deg,#10b981,#0ea472);animation:pop .45s cubic-bezier(.2,1.4,.4,1)}
+.ic.warn{background:linear-gradient(135deg,var(--warn),var(--bad));animation:pop .45s cubic-bezier(.2,1.4,.4,1)}
+@keyframes pop{0%{transform:scale(.5);opacity:0}100%{transform:scale(1);opacity:1}}
+.toast{position:fixed;left:50%;bottom:30px;transform:translate(-50%,20px);background:#101828;color:#fff;padding:12px 18px;border-radius:12px;font-size:13.5px;font-weight:600;opacity:0;pointer-events:none;transition:.3s;z-index:200;box-shadow:0 12px 30px -10px rgba(0,0,0,.5);max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.toolbar{position:fixed;top:50px;right:14px;z-index:80;display:flex;gap:8px;align-items:center}
+.tbtn{display:inline-flex;align-items:center;gap:6px;padding:8px 13px;border-radius:10px;border:1px solid var(--ln);background:var(--sf);color:var(--ink);font:inherit;font-size:13px;font-weight:600;cursor:pointer;box-shadow:var(--shadow);transition:.2s}
+.tbtn:hover{transform:translateY(-1px);border-color:var(--ac)}
+#toTop{position:fixed;right:18px;bottom:24px;z-index:65;width:46px;height:46px;border-radius:50%;border:1px solid var(--ln);background:var(--sf);color:var(--ink);font-size:19px;cursor:pointer;box-shadow:var(--shadow);opacity:0;pointer-events:none;transform:translateY(10px);transition:.3s;display:grid;place-items:center;line-height:1}
+#toTop.show{opacity:1;pointer-events:auto;transform:none}
+#toTop:hover{border-color:var(--ac);transform:translateY(-2px)}
+@media(max-width:720px){
+body{padding-bottom:20px}
+.hero{padding:68px 0 2px}
+.hero h1{font-size:26px;margin:10px 0 8px}
+.badge{font-size:11px;padding:5px 11px}
+.lead{font-size:13.5px;padding:0 6px;line-height:1.45}
+.card{padding:14px;margin:12px 0;border-radius:16px}
+.step-dots{gap:5px;margin-bottom:14px}
+.step-dot{width:26px;height:26px;font-size:11px}
+.wizard-head{gap:10px;padding-bottom:12px;margin-bottom:14px}
+.wizard-icon{font-size:26px}
+.wizard-head h2{font-size:15.5px}
+.wizard-head p{font-size:12px;line-height:1.4}
+.wizard-meta{gap:7px}
+#face{font-size:24px}
+.count-badge{font-size:12px;padding:4px 10px;min-width:34px}
+.wizard-body{min-height:130px}
+.grid,.modes{grid-template-columns:1fr;gap:8px}
+.opt{padding:11px 12px;font-size:13.5px;border-radius:11px;gap:10px}
+.mcard{padding:14px;border-radius:12px}
+.mcard b{font-size:10.5px}
+.mcard h3{font-size:14.5px;margin:4px 0}
+.mcard p{font-size:12.5px;line-height:1.4}
+.mk{top:12px;right:12px;width:20px;height:20px}
+.wizard-nav{margin-top:16px;padding-top:14px;gap:8px}
+.wizard-nav .btn{flex:1;padding:11px 12px;font-size:13.5px}
+.btn{padding:11px 16px;font-size:13.5px;border-radius:10px}
+.toolbar{top:44px;right:8px;gap:6px}
+.tbtn{padding:5px 9px;font-size:11.5px;border-radius:8px}
+.progbar{padding:7px 0}
+.prog{height:5px}
+.sheet{padding:18px;border-radius:18px}
+.sheet.center{width:min(94vw,420px)}
+.mhead h2{font-size:17px}
+.sub{font-size:12.5px;line-height:1.45}
+.field{margin:12px 0}
+.field input,.field textarea{font-size:14px;padding:15px 12px 8px;border-radius:10px}
+.field textarea{min-height:96px}
+.field label{font-size:14px;top:14px}
+.field input:focus~label,.field input:not(:placeholder-shown)~label,.field textarea:focus~label,.field textarea:not(:placeholder-shown)~label{font-size:11px;top:-7px}
+.mfoot .btn{flex:1;padding:11px 10px;font-size:13px}
+#toTop{right:12px;bottom:16px;width:40px;height:40px;font-size:17px}
+.missing-item{padding:10px 12px;gap:8px}
+.mi-title{font-size:13px}
+.mi-label{font-size:11px;padding:2px 6px}
+.mi-icon{font-size:19px}
+.chip{font-size:11.5px;padding:4px 9px}
+.sblock{margin:10px 0}
+.sblock b{font-size:11px;margin-bottom:5px}
+.ic{width:52px;height:52px;font-size:24px;margin:4px auto 10px}
+.badword-panel{padding:10px 12px}
+.bw-word{font-size:11.5px}
+}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="progbar"><div class="wrap"><div class="prog"><i id="prog"></i></div></div></div>
+<div class="toolbar">
+<button class="tbtn" id="langBtn" title="Change language / Cambiar idioma">ES</button>
+<button class="tbtn" id="themeBtn" title="Theme / Tema"><span id="themeIcon">◐</span></button>
+</div>
+<header class="hero"><div class="wrap"><span class="badge" data-i18n="hero.badge">Propuesta de desarrollo</span><h1 data-i18n-html="hero.title">Planilla de <span>requerimientos</span></h1><p class="lead" data-i18n="hero.lead">Marca las secciones que necesitas para tu aplicación. Al final podrás revisar tu solicitud, completar tus datos y enviarla al desarrollador.</p></div></header>
+<main class="wrap"><div id="wizard"></div></main>
+<button id="toTop" title="Ir arriba" aria-label="Ir arriba">↑</button>
+
+<div class="modal" id="missingModal"><div class="sheet center"><div class="ic warn">!</div><h2 data-i18n="missing.title">Faltan puntos obligatorios</h2><p class="sub" data-i18n="missing.sub">Completa lo siguiente antes de continuar:</p><div class="missing-list" id="missingList"></div><div class="mfoot"><button class="btn g" data-close data-i18n="btn.cancel">Cerrar</button><button class="btn p" id="goToMissing" data-i18n="missing.go">Ir al paso faltante</button></div></div></div>
+
+<div class="modal" id="reviewModal"><div class="sheet"><div class="mhead"><h2 data-i18n="review.title">Resumen de tu solicitud</h2><button class="x" data-close aria-label="Cerrar">&times;</button></div><p class="sub" data-i18n="review.sub">Revisa tu selección. Puedes volver a la planilla para modificarla o continuar con tus datos.</p><div id="summary"></div><div class="mfoot"><button class="btn g" id="backToWizard" data-i18n="review.back">← Volver a la planilla</button><button class="btn p" id="continueToData" data-i18n="review.next">Continuar →</button></div></div></div>
+
+<div class="modal" id="dataModal"><div class="sheet"><div class="mhead"><h2 data-i18n="data.title">Datos de contacto</h2><button class="x" data-close aria-label="Cerrar">&times;</button></div><p class="sub" data-i18n="data.sub">Completa tus datos para enviar la solicitud al desarrollador.</p><div class="fgroup"><div class="field"><input id="fname" placeholder=" " autocomplete="name"><label for="fname" data-i18n="form.name">Nombre y apellido *</label><span class="msg"></span></div><div class="field"><input id="fwa" placeholder=" " inputmode="numeric" pattern="[0-9]*" autocomplete="tel"><label for="fwa" data-i18n="form.wa">WhatsApp *</label><span class="msg"></span></div><div class="field"><input id="fbiz" placeholder=" " autocomplete="organization"><label for="fbiz" data-i18n="form.biz">Nombre del negocio *</label><span class="msg"></span></div><div class="field"><input id="fmail" placeholder=" " type="email" autocomplete="email"><label for="fmail" data-i18n="form.mail">Correo electrónico (opcional)</label><span class="msg"></span></div></div><div class="mfoot"><button class="btn g" id="backToReview" data-i18n="data.back">← Volver al resumen</button><button class="btn p" id="send" data-i18n="btn.send">Confirmar y enviar</button></div></div></div>
+
+<div class="modal" id="doneModal"><div class="sheet center"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const CFG={botToken:'PEGA_AQUI_TU_TOKEN_DE_BOT',chatId:'@wRedFoxw'};
+const PW=595.28,PH=841.89,MG=48;
+const DATA=[
+{id:'admon',n:'1',t:'App Administración',d:'Aplicación de escritorio para Windows',icon:'💻',items:['Gestión: Categorías, proveedores, tarjetas, monedas, locales.','Productos: Alta/edición de productos, precios e imágenes.','Compras: Entrada de mercancía y costos por proveedor.','Ventas: Lista, reportes, transferencias y turnos de caja.','Gastos: Registro y resumen de gastos operativos.','Inventario: Stock por local, mínimos, alertas y movimientos.','Usuarios: Roles, permisos y control de sesiones.','Sistema: Telegram, WhatsApp, APK y versión de la app.']},
+{id:'dep',n:'1.1',t:'Dependencias con la App Cliente',d:'Tienda online',icon:'🔗',items:['Órdenes: Pedidos online y control de sus estados.','Ofertas: Promociones con productos, precio y vencimiento.','Horarios: Apertura/cierre y modo forzado de la tienda.','Información: Slogan, contacto y enlaces del negocio.','Notificaciones: Envío de mensajes push a los clientes.','Etiquetas: Destacados, más vendidos, nuevos y en oferta.','Conexiones: Monitoreo en vivo de clientes conectados.','Analíticas: Gráficos de ventas y aceptación de productos.']},
+{id:'mode',n:'2',t:'App Cliente (Tienda Online)',d:'WebApp compatible con todos los dispositivos con navegador',icon:'🛒',mode:true},
+{id:'comun',n:'2.1',t:'Funciones comunes',d:'Aplican a cualquier modo de funcionamiento',icon:'⚙️',items:['Catálogo por categorías','Ofertas activas','Buscador','Estado abierto/cerrado','Notificaciones','Conversor de moneda (según su tasa de cambio)']},
+{id:'modob',n:'2.2',t:'Modo B · Funciones adicionales',d:'Solo si eliges compras online',icon:'🚚',items:['Carrito de compras','Métodos de pago','Métodos de envío (mensajería)','Zonas de envío','Cambiar/cancelar pedido','Vinculación con Telegram']},
+{id:'integr',n:'3',t:'Integraciones opcionales',d:'',icon:'🔌',items:['Bot de Telegram (avisos de pedidos, información del negocio, notificaciones al cliente)','Descarga de APK para Android','Multi-local (varias sucursales con inventario propio)','Creación de cuentas y servicios Online con planes gratuitos (limitados)']}
+];
+const I18N={
+es:{'hero.badge':'Propuesta de desarrollo','hero.title':'Planilla de <span>requerimientos</span>','hero.lead':'Marca las secciones que necesitas para tu aplicación. Al final podrás revisar tu solicitud, completar tus datos y enviarla al desarrollador.','review.title':'Resumen de tu solicitud','review.sub':'Revisa tu selección. Puedes volver a la planilla para modificarla o continuar con tus datos.','review.back':'← Volver a la planilla','review.next':'Continuar →','data.title':'Datos de contacto','data.sub':'Completa tus datos para enviar la solicitud al desarrollador.','data.back':'← Volver al resumen','btn.cancel':'Cerrar','btn.send':'Confirmar y enviar','mode.hint':'Elige un modo de funcionamiento','mode.a':'Modo A','mode.at':'Solo catálogo','mode.ad':'Muestra productos, precios y ofertas. El cliente contacta por WhatsApp para realizar el pedido.','mode.b':'Modo B','mode.bt':'Catálogo + compras online','mode.bd':'Incluye todo lo del Modo A más carrito de compras, pago y envío a domicilio.','sec.extra':'Peticiones del cliente','sec.extraPh':'Comentarios adicionales','wiz.back':'Atrás','wiz.next':'Siguiente','wiz.finish':'Finalizar','step.admonD':'Elige las funciones de gestión para tu app de escritorio','step.depD':'Elige qué necesita la tienda online del panel de administración','step.modeD':'Define cómo funcionará la tienda para tus clientes','step.comunD':'Funciones que tendrá la tienda en cualquier modo','step.modobD':'Funciones extra para compras online','step.integrD':'Servicios adicionales opcionales','step.extraD':'Cuéntanos cualquier detalle adicional','missing.title':'Faltan puntos obligatorios','missing.sub':'Completa lo siguiente antes de continuar:','missing.go':'Ir al paso faltante','bwHead':'Se detectaron palabras no permitidas','bwViolation':'Contiene palabras no permitidas','toast.pdf':'No se pudo generar el PDF','toast.copied':'Mensaje copiado al portapapeles','done.okTitle':'Solicitud enviada','done.okText':'Tu solicitud llegó al desarrollador por Telegram. Puedes descargar el PDF como respaldo.','done.failTitle':'Envío manual','done.failText':'No se pudo enviar automáticamente. Descarga el PDF, copia los datos o abre Telegram para enviar la solicitud al desarrollador.','done.download':'Descargar PDF','done.done':'Listo','done.openTg':'Abrir Telegram','done.copy':'Copiar datos','pdf.title':'SOLICITUD DE DESARROLLO DE WEBAPPS','pdf.sub':'Planilla de requerimientos personalizada','pdf.date':'Fecha','pdf.client':'DATOS DEL CLIENTE','pdf.name':'Nombre','pdf.wa':'WhatsApp','pdf.biz':'Negocio','pdf.mail':'Correo','pdf.mailNA':'No informado','pdf.mode':'MODO DE FUNCIONAMIENTO','pdf.modeNA':'No especificado','pdf.modeA':'Modo A - Solo catálogo (sin compras online)','pdf.modeB':'Modo B - Catálogo + mensajería a domicilio (compras online)','pdf.extra':'PETICIONES DEL CLIENTE','badWords':'Contiene palabras no permitidas','invalidMail':'Correo inválido'}, en:{'hero.badge':'Development proposal','hero.title':'Requirements <span>sheet</span>','hero.lead':'Select the sections you need for your application. At the end you can review your request, fill in your details and send it to the developer.','review.title':'Request summary','review.sub':'Review your selection. You can go back to the sheet to modify it or continue with your details.','review.back':'← Back to sheet','review.next':'Continue →','data.title':'Contact details','data.sub':'Complete your details to send the request to the developer.','data.back':'← Back to summary','btn.cancel':'Close','btn.send':'Confirm & send','mode.hint':'Choose an operating mode','mode.a':'Mode A','mode.at':'Catalog only','mode.ad':'Shows products, prices and offers. The customer contacts via WhatsApp to place the order.','mode.b':'Mode B','mode.bt':'Catalog + online purchases','mode.bd':'Includes everything from Mode A plus shopping cart, payment and home delivery.','sec.extra':'Client requests','sec.extraPh':'Additional comments','wiz.back':'Back','wiz.next':'Next','wiz.finish':'Finish','step.admonD':'Choose the management features for your desktop app','step.depD':'Choose what the online store needs from the admin panel','step.modeD':'Define how the store will work for your customers','step.comunD':'Features the store will have in any mode','step.modobD':'Extra features for online purchases','step.integrD':'Optional additional services','step.extraD':'Tell us any additional details','missing.title':'Missing required points','missing.sub':'Complete the following before continuing:','missing.go':'Go to missing step','bwHead':'Forbidden words detected','bwViolation':'Contains forbidden words','toast.pdf':'Could not generate the PDF','toast.copied':'Message copied to clipboard','done.okTitle':'Request sent','done.okText':'Your request reached the developer via Telegram. You can download the PDF as backup.','done.failTitle':'Manual send','done.failText':'Could not send automatically. Download the PDF, copy the data or open Telegram to send the request to the developer.','done.download':'Download PDF','done.done':'Done','done.openTg':'Open Telegram','done.copy':'Copy data','pdf.title':'WEBAPP DEVELOPMENT REQUEST','pdf.sub':'Customized requirements sheet','pdf.date':'Date','pdf.client':'CLIENT DATA','pdf.name':'Name','pdf.wa':'WhatsApp','pdf.biz':'Business','pdf.mail':'Email','pdf.mailNA':'Not provided','pdf.mode':'OPERATING MODE','pdf.modeNA':'Not specified','pdf.modeA':'Mode A - Catalog only (no online purchases)','pdf.modeB':'Mode B - Catalog + home delivery (online purchases)','pdf.extra':'CLIENT REQUESTS','badWords':'Contains forbidden words','invalidMail':'Invalid email'}
+};
+const BAD=['mierda','mierdas','puta','puto','putas','putos','putita','putito','cabron','cabrona','cabrones','pendejo','pendeja','pendejos','pendejas','verga','vergudo','chinga','chingar','chingada','chingado','chingon','joder','jodete','jodido','jodida','coño','carajo','marica','maricon','gonorrea','hijueputa','hijoputa','malparido','malparida','culiao','culiada','boludo','boluda','pelotudo','pelotuda','gilipollas','imbecil','estupido','estupida','idiota','pinga','picha','pichula','cagar','cagada','cagon','cagona','mamada','mamadas','culero','culera','fuck','fucking','fucker','shit','shitty','bitch','asshole','bastard','damn','dick','pussy','cunt','whore','slut','nigger','faggot','motherfucker','retard','retarded','sonofabitch'];
+function normalize(s){return String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,' ');}
+function findBadWords(txt){const n=normalize(txt);const f=[];BAD.forEach(w=>{const e=w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');const re=new RegExp('(^|[^a-z0-9])'+e+'([^a-z0-9]|$)','i');if(re.test(n)&&!f.includes(w))f.push(w);});return f;}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function escTG(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+let lang=localStorage.getItem('lang')||'es';
+const state={step:0,modo:null,selections:{},extra:''};
+let firstWizardRender=true;
+const $=s=>document.querySelector(s);
+const $$=s=>Array.from(document.querySelectorAll(s));
+function t(k){return I18N[lang][k]||k;}
+function getStepFace(step){
+if(step.id==='extra'){
+if(findBadWords(state.extra).length)return '😠';
+if(state.extra.trim().length>=3)return '🙂';
+return '😐';
+}
+if(step.id==='mode')return state.modo?'😊':'😐';
+const data=DATA.find(d=>d.id===step.id);
+if(!data)return '😐';
+const sel=(state.selections[step.id]||[]).length,total=data.items.length;
+if(sel===0)return '😐';
+const pct=sel/total;
+if(pct<=0.34)return '🙂';
+if(pct<=0.67)return '😊';
+if(pct<1)return '😄';
+return '🤩';
+}
+function getStepBadge(step){
+if(step.id==='extra'){
+if(findBadWords(state.extra).length)return '🚫';
+if(state.extra.trim().length>=3)return '✓';
+return '—';
+}
+if(step.id==='mode')return state.modo?'1/1':'0/1';
+const data=DATA.find(d=>d.id===step.id);
+if(!data)return '—';
+const sel=(state.selections[step.id]||[]).length;
+return sel+'/'+data.items.length;
+}
+function setFace(el,emoji){
+if(!el||el.textContent===emoji)return;
+el.textContent=emoji;
+el.style.transform='scale(1.4)';
+setTimeout(()=>{el.style.transform='';},200);
+}
+function updateMeta(){
+const steps=visibleSteps();
+const cur=Math.min(state.step,steps.length-1);
+const step=steps[cur];
+const face=document.getElementById('face');
+const badge=document.getElementById('stepBadge');
+if(face)setFace(face,getStepFace(step));
+if(badge)badge.textContent=getStepBadge(step);
+}
+function visibleSteps(){
+const all=[
+{id:'admon',label:'1',title:DATA[0].t,icon:'💻',desc:t('step.admonD')},
+{id:'dep',label:'1.1',title:DATA[1].t,icon:'🔗',desc:t('step.depD')},
+{id:'mode',label:'2',title:DATA[2].t,icon:'🛒',desc:t('step.modeD')},
+{id:'comun',label:'2.1',title:DATA[3].t,icon:'⚙️',desc:t('step.comunD')},
+{id:'modob',label:'2.2',title:DATA[4].t,icon:'🚚',desc:t('step.modobD'),onlyIf:()=>state.modo==='B'},
+{id:'integr',label:'3',title:DATA[5].t,icon:'🔌',desc:t('step.integrD')},
+{id:'extra',label:'4',title:t('sec.extra'),icon:'✍️',desc:t('step.extraD')}
+];
+return all.filter(s=>!s.onlyIf||s.onlyIf());
+}
+function stepValid(step){
+const id=step.id;
+if(id==='admon')return (state.selections.admon||[]).length>0;
+if(id==='dep')return (state.selections.dep||[]).length>0;
+if(id==='mode')return state.modo!==null;
+if(id==='comun')return (state.selections.comun||[]).length>0;
+if(id==='modob')return state.modo!=='B'||(state.selections.modob||[]).length>0;
+if(id==='extra')return findBadWords(state.extra).length===0;
+return true;
+}
+function getMissingSteps(){
+const steps=visibleSteps();
+const req=['admon','dep','mode','comun'];
+if(state.modo==='B')req.push('modob');
+const missing=[];
+steps.forEach(s=>{if(req.includes(s.id)&&!stepValid(s))missing.push(s);});
+return missing;
+}
+function updateProgress(){
+const steps=visibleSteps();
+const cur=Math.min(state.step,steps.length-1);
+const pct=steps.length<=1?100:((cur+1)/steps.length)*100;
+const el=document.getElementById('prog');
+if(el)el.style.width=pct+'%';
+}
+function scrollToWizard(){const el=document.querySelector('.wizard');if(el){const y=el.getBoundingClientRect().top+window.scrollY-80;window.scrollTo({top:y,behavior:'smooth'});}}
+function renderStepContent(step){if(step.id==='mode')return renderModes();if(step.id==='extra')return renderExtra();return renderCheckboxes(step.id);}
+function renderCheckboxes(id){
+const data=DATA.find(d=>d.id===id);
+const sel=state.selections[id]||[];
+let h='<div class="grid">';
+data.items.forEach((it,i)=>{const on=sel.includes(i);h+='<label class="opt'+(on?' on':'')+'"><input type="checkbox" data-s="'+id+'" data-i="'+i+'"'+(on?' checked':'')+'><span class="box"></span><span class="txt">'+esc(it)+'</span></label>';});
+h+='</div>';
+return h;
+}
+function renderModes(){
+return '<p class="hint">'+t('mode.hint')+'</p><div class="modes">'+
+'<label class="mcard'+(state.modo==='A'?' on':'')+'" data-v="A"><input type="radio" name="modo" value="A"'+(state.modo==='A'?' checked':'')+'><span class="mk"></span><b>'+t('mode.a')+'</b><h3>'+t('mode.at')+'</h3><p>'+t('mode.ad')+'</p></label>'+
+'<label class="mcard'+(state.modo==='B'?' on':'')+'" data-v="B"><input type="radio" name="modo" value="B"'+(state.modo==='B'?' checked':'')+'><span class="mk"></span><b>'+t('mode.b')+'</b><h3>'+t('mode.bt')+'</h3><p>'+t('mode.bd')+'</p></label>'+
+'</div>';
+}
+function renderExtra(){
+return '<div class="field" id="extraField"><textarea id="extra" placeholder=" " rows="4"></textarea><label for="extra">'+t('sec.extraPh')+'</label><span class="msg"></span></div>'+
+'<div class="badword-panel" id="badwordPanel" style="display:none"><div class="bw-head"><span class="bw-ico">🚫</span><span>'+t('bwHead')+'</span></div><div class="bw-list" id="bwList"></div></div>';
+}
+function renderWizard(){
+const steps=visibleSteps();
+const cur=Math.min(state.step,steps.length-1);
+state.step=cur;
+const step=steps[cur];
+let h='<div class="card wizard'+(firstWizardRender?'':' in')+'">';
+h+='<div class="step-dots">';
+steps.forEach((s,i)=>{const cls=i<cur?'done':i===cur?'active':'';h+='<span class="step-dot '+cls+'" title="'+esc(s.label+' · '+s.title)+'">'+(i<cur?'✓':esc(s.label))+'</span>';});
+h+='</div>';
+h+='<div class="wizard-head"><span class="wizard-icon">'+step.icon+'</span><div><h2>'+esc(step.title)+'</h2>'+(step.desc?'<p>'+esc(step.desc)+'</p>':'')+'</div>';
+h+='<div class="wizard-meta"><span id="face">'+getStepFace(step)+'</span><span class="count-badge" id="stepBadge">'+getStepBadge(step)+'</span></div></div>';
+h+='<div class="wizard-body">'+renderStepContent(step)+'</div>';
+const isLast=cur===steps.length-1;
+const valid=stepValid(step);
+h+='<div class="wizard-nav">';
+h+='<button class="btn g" id="backBtn"'+(cur===0?' disabled':'')+'>← '+t('wiz.back')+'</button>';
+h+='<button class="btn p" id="nextBtn"'+(valid?'':' disabled')+'>'+(isLast?'✓ '+t('wiz.finish'):t('wiz.next')+' →')+'</button>';
+h+='</div>';
+h+='</div>';
+$('#wizard').innerHTML=h;
+if(firstWizardRender){setTimeout(()=>document.querySelector('.wizard').classList.add('in'),50);firstWizardRender=false;}
+if(step.id==='extra'){const ta=document.getElementById('extra');if(ta){ta.value=state.extra;checkBadWords();}}
+updateProgress();
+}
+function checkBadWords(){
+const ta=document.getElementById('extra');if(!ta)return;
+const field=document.getElementById('extraField'),panel=document.getElementById('badwordPanel'),list=document.getElementById('bwList');
+if(!field||!panel||!list)return;
+const found=findBadWords(state.extra);
+if(found.length){field.classList.add('err');field.querySelector('.msg').textContent=t('badWords');panel.style.display='block';list.innerHTML=found.map(w=>'<span class="bw-word">'+esc(w)+'</span>').join('');}
+else{field.classList.remove('err');field.querySelector('.msg').textContent='';panel.style.display='none';list.innerHTML='';}
+updateNextBtn();
+updateMeta();
+}
+function updateNextBtn(){const btn=document.getElementById('nextBtn');if(!btn)return;const steps=visibleSteps();const cur=Math.min(state.step,steps.length-1);btn.disabled=!stepValid(steps[cur]);}
+function goNext(){
+const steps=visibleSteps();const cur=Math.min(state.step,steps.length-1);
+if(!stepValid(steps[cur]))return;
+if(cur===steps.length-1){openReview();return;}
+state.step=cur+1;renderWizard();scrollToWizard();
+}
+function goBack(){if(state.step<=0)return;state.step--;renderWizard();scrollToWizard();}
+function buildMissingContent(){
+const missing=getMissingSteps();
+const bad=findBadWords(state.extra);
+let h='';
+missing.forEach(s=>{h+='<div class="missing-item"><span class="mi-icon">'+s.icon+'</span><span class="mi-label">'+esc(s.label)+'</span><span class="mi-title">'+esc(s.title)+'</span></div>';});
+if(bad.length)h+='<div class="missing-item violation"><span class="mi-icon">🚫</span><span class="mi-label">4</span><span class="mi-title">'+t('bwViolation')+': '+bad.map(esc).join(', ')+'</span></div>';
+return{html:h,count:missing.length+(bad.length?1:0)};
+}
+function openReview(){
+const{html,count}=buildMissingContent();
+if(count>0){$('#missingList').innerHTML=html;openModal('#missingModal');return;}
+$('#summary').innerHTML=summaryHTML();
+openModal('#reviewModal');
+}
+function summaryHTML(){
+let h='';
+if(state.modo)h+='<div class="sblock"><b>'+t('pdf.mode')+'</b><div class="chips"><span class="chip">'+t(state.modo==='A'?'mode.a':'mode.b')+'</span></div></div>';
+DATA.forEach(s=>{
+if(s.mode)return;
+const arr=state.selections[s.id]||[];
+if(!arr.length)return;
+h+='<div class="sblock"><b>'+s.n+' · '+esc(s.t)+'</b><div class="chips">'+arr.map(i=>'<span class="chip">'+esc(s.items[i])+'</span>').join('')+'</div></div>';
+});
+if(!h)h='<p class="empty">—</p>';
+return h;
+}
+let tt;
+function toast(m){const el=$('#toast');el.textContent=m;el.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>el.classList.remove('show'),3200);}
+function openModal(s){const m=$(s);m.classList.add('open');document.body.style.overflow='hidden';}
+function closeAll(){$$('.modal.open').forEach(m=>m.classList.remove('open'));document.body.style.overflow='';}
+function validar(){
+let ok=true;
+[['#fname','form.name'],['#fwa','form.wa'],['#fbiz','form.biz']].forEach(p=>{
+const el=$(p[0]),f=el.closest('.field');
+if(!el.value.trim()){f.classList.add('err');f.querySelector('.msg').textContent=t(p[1]);ok=false;}
+else f.classList.remove('err');
+});
+const em=$('#fmail'),fe=em.closest('.field');
+if(em.value.trim()&&!/^[^@\s]+@[^@\s]+\.[a-zA-Z]{2,}$/.test(em.value.trim())){fe.classList.add('err');fe.querySelector('.msg').textContent=t('invalidMail');ok=false;}
+else fe.classList.remove('err');
+return ok;
+}
+function pesc(s){
+let o='';
+for(const ch of String(s)){
+const c=ch.codePointAt(0);
+if(c<256)o+=ch;
+else if(c===0x2018||c===0x2019)o+="'";
+else if(c===0x201c||c===0x201d)o+='"';
+else if(c===0x2013||c===0x2014)o+='-';
+else if(c===0x2022)o+=String.fromCharCode(149);
+else o+='?';
+}
+return o.replace(/\\/g,'\\\\').replace(/\(/g,'\\(').replace(/\)/g,'\\)');
+}
+function wrapText(txt,size,bold){
+const maxW=PW-2*MG,cf=bold?0.56:0.5,max=Math.max(12,Math.floor(maxW/(size*cf)));
+const words=String(txt).split(/\s+/);const lines=[];let cur='';
+words.forEach(w=>{
+if((cur?cur+' '+w:w).length<=max)cur=cur?cur+' '+w:w;
+else{if(cur)lines.push(cur);cur=w;while(cur.length>max){lines.push(cur.slice(0,max));cur=cur.slice(max);}}
+});
+if(cur)lines.push(cur);
+return lines.length?lines:[''];
+}
+function makePDF(lines){
+const pages=[];let cur=[],y=PH-MG;
+lines.forEach(l=>{
+y-=l.sp||0;
+wrapText(l.t,l.s,l.b).forEach(txt=>{
+const lh=l.s*1.45;
+if(y-lh<MG){pages.push(cur);cur=[];y=PH-MG;}
+cur.push({x:MG,y:y,t:txt,s:l.s,b:l.b});
+y-=lh;
+});
+});
+if(cur.length)pages.push(cur);
+if(!pages.length)pages.push([]);
+return pagesToPdf(pages);
+}
+function pagesToPdf(pages){
+const n=pages.length,objs=[];
+objs[1]='<< /Type /Catalog /Pages 2 0 R >>';
+objs[2]='<< /Type /Pages /Kids ['+Array.from({length:n},(_,i)=>(5+2*i)+' 0 R').join(' ')+'] /Count '+n+' >>';
+objs[3]='<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>';
+objs[4]='<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>';
+for(let i=0;i<n;i++){
+const pg=pages[i],pid=5+2*i,cid=6+2*i;
+objs[pid]='<< /Type /Page /Parent 2 0 R /MediaBox [0 0 '+PW+' '+PH+'] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents '+cid+' 0 R >>';
+let s='';
+pg.forEach(l=>{s+='BT /'+(l.b?'F2':'F1')+' '+l.s+' Tf 1 0 0 1 '+l.x.toFixed(2)+' '+l.y.toFixed(2)+' Tm ('+pesc(l.t)+') Tj ET\n';});
+objs[cid]='<< /Length '+s.length+' >>\nstream\n'+s+'endstream';
+}
+let out='%PDF-1.4\n';const off=[];
+for(let i=1;i<=4+2*n;i++){off[i]=out.length;out+=i+' 0 obj\n'+objs[i]+'\nendobj\n';}
+const xr=out.length;
+out+='xref\n0 '+(5+2*n)+'\n0000000000 65535 f \n';
+for(let i=1;i<=4+2*n;i++)out+=String(off[i]).padStart(10,'0')+' 00000 n \n';
+out+='trailer\n<< /Size '+(5+2*n)+' /Root 1 0 R >>\nstartxref\n'+xr+'\n%%EOF';
+const b=new Uint8Array(out.length);
+for(let i=0;i<out.length;i++)b[i]=out.charCodeAt(i)&255;
+return b;
+}
+function buildItems(d){
+const L=[];const add=(txt,s,b,sp)=>L.push({t:txt,s:s||10,b:!!b,sp:sp||0});
+add(t('pdf.title'),16,1,0);
+add(t('pdf.sub'),9.5,0,6);
+add(t('pdf.date')+': '+new Date().toLocaleString(lang==='es'?'es-419':'en-US'),9.5,0,2);
+add(t('pdf.client'),11,1,18);
+add(t('pdf.name')+': '+d.nombre,10,0,4);
+add(t('pdf.wa')+': '+d.wa,10,0,4);
+add(t('pdf.biz')+': '+d.negocio,10,0,4);
+add(t('pdf.mail')+': '+(d.mail||t('pdf.mailNA')),10,0,4);
+add(t('pdf.mode'),11,1,18);
+add('App Cliente: '+(d.modo==='A'?t('pdf.modeA'):d.modo==='B'?t('pdf.modeB'):t('pdf.modeNA')),10,0,4);
+DATA.forEach(s=>{
+if(s.mode)return;
+const arr=d.sel[s.id]||[];
+if(!arr.length)return;
+add(s.n+'  '+s.t.toUpperCase(),11,1,18);
+arr.forEach(i=>add('[X] '+s.items[i],9.5,0,3));
+});
+if(d.extra){add(t('pdf.extra'),11,1,18);add(d.extra,10,0,4);}
+return L;
+}
+function collect(){return{nombre:$('#fname').value.trim(),wa:$('#fwa').value.trim(),negocio:$('#fbiz').value.trim(),mail:$('#fmail').value.trim(),modo:state.modo,sel:state.selections,extra:state.extra};}
+function buildMessageText(d){
+let txt='📋 <b>NUEVA SOLICITUD DE DESARROLLO</b>\n\n';
+txt+='<b>👤 Cliente:</b> '+escTG(d.nombre)+'\n';
+txt+='<b>📱 WhatsApp:</b> '+escTG(d.wa)+'\n';
+txt+='<b>🏢 Negocio:</b> '+escTG(d.negocio)+'\n';
+if(d.mail)txt+='<b>📧 Correo:</b> '+escTG(d.mail)+'\n';
+txt+='\n<b>🛒 Modo:</b> '+(d.modo==='A'?'Modo A — Solo catálogo':d.modo==='B'?'Modo B — Catálogo + compras online':'No especificado')+'\n';
+txt+='\n<b>📝 Requerimientos seleccionados:</b>\n';
+DATA.forEach(s=>{
+if(s.mode)return;
+const arr=d.sel[s.id]||[];
+if(!arr.length)return;
+txt+='\n<b>'+escTG(s.n+' · '+s.t)+'</b>\n';
+arr.forEach(i=>{txt+='• '+escTG(s.items[i])+'\n';});
+});
+if(d.extra)txt+='\n<b>✍️ Peticiones del cliente:</b>\n'+escTG(d.extra)+'\n';
+txt+='\n📅 '+new Date().toLocaleString('es-419');
+if(txt.length>4000)txt=txt.slice(0,3990)+'...';
+return txt;
+}
+function buildPlainText(d){
+let txt='NUEVA SOLICITUD DE DESARROLLO\n\n';
+txt+='Cliente: '+d.nombre+'\n';
+txt+='WhatsApp: '+d.wa+'\n';
+txt+='Negocio: '+d.negocio+'\n';
+if(d.mail)txt+='Correo: '+d.mail+'\n';
+txt+='\nModo: '+(d.modo==='A'?'Modo A — Solo catálogo':d.modo==='B'?'Modo B — Catálogo + compras online':'No especificado')+'\n';
+txt+='\nRequerimientos seleccionados:\n';
+DATA.forEach(s=>{
+if(s.mode)return;
+const arr=d.sel[s.id]||[];
+if(!arr.length)return;
+txt+='\n['+s.n+' · '+s.t+']\n';
+arr.forEach(i=>{txt+='• '+s.items[i]+'\n';});
+});
+if(d.extra)txt+='\nPeticiones del cliente:\n'+d.extra+'\n';
+txt+='\nFecha: '+new Date().toLocaleString('es-419');
+return txt;
+}
+function safe(s){return String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^\w\-]+/g,'_').replace(/^_+|_+$/g,'').slice(0,40)||'cliente';}
+function fileDate(){const d=new Date();const p=n=>String(n).padStart(2,'0');return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate());}
+function fileName(nombre){return 'Solicitud-'+fileDate()+'_'+safe(nombre)+'.pdf';}
+async function sendTelegramMessage(d){
+const token=CFG.botToken;
+if(!token||token.indexOf('PEGA')===0)return false;
+try{
+const fd=new FormData();
+fd.append('chat_id',CFG.chatId);
+fd.append('text',buildMessageText(d));
+fd.append('parse_mode','HTML');
+const r=await fetch('https://api.telegram.org/bot'+token+'/sendMessage',{method:'POST',body:fd});
+const j=await r.json();
+return !!j.ok;
+}catch(e){return false;}
+}
+function silentDownload(blob,filename){
+const url=URL.createObjectURL(blob);
+const a=document.createElement('a');
+a.href=url;a.download=filename;a.style.display='none';
+document.body.appendChild(a);a.click();
+setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},5000);
+}
+async function copyMessage(d){
+const txt=buildPlainText(d);
+try{
+await navigator.clipboard.writeText(txt);
+toast(t('toast.copied'));
+}catch(e){
+const ta=document.createElement('textarea');
+ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';
+document.body.appendChild(ta);ta.select();
+try{document.execCommand('copy');toast(t('toast.copied'));}catch(_){}
+ta.remove();
+}
+}
+function showDone(kind,blob,filename,d){
+const url=URL.createObjectURL(blob);
+if(kind==='ok'){
+$('#doneModal .sheet').innerHTML='<div class="ic ok">&#10003;</div><h2>'+t('done.okTitle')+'</h2><p class="sub" style="margin-top:8px">'+t('done.okText')+'</p><div class="mfoot"><a class="btn g" href="'+url+'" download="'+filename+'">'+t('done.download')+'</a><button class="btn p" data-close>'+t('done.done')+'</button></div>';
+}else{
+$('#doneModal .sheet').innerHTML='<div class="ic warn">!</div><h2>'+t('done.failTitle')+'</h2><p class="sub" style="margin-top:8px">'+t('done.failText')+'</p><div class="mfoot"><a class="btn g" href="'+url+'" download="'+filename+'">'+t('done.download')+'</a><button class="btn g" id="copyMsgBtn">'+t('done.copy')+'</button><a class="btn p" href="https://t.me/wRedFoxw" target="_blank" rel="noopener">'+t('done.openTg')+'</a></div>';
+}
+openModal('#doneModal');
+const cb=document.getElementById('copyMsgBtn');
+if(cb)cb.addEventListener('click',()=>copyMessage(d));
+}
+async function doSend(){
+if(!validar())return;
+const bad=findBadWords(state.extra);
+if(bad.length){toast(t('badWords'));return;}
+const btn=$('#send');
+if(btn.disabled)return;
+btn.disabled=true;btn.classList.add('load');btn.textContent=lang==='es'?'Enviando':'Sending';
+const d=collect();
+const filename=fileName(d.nombre);
+let bytes;
+try{bytes=makePDF(buildItems(d));}catch(e){btn.disabled=false;btn.classList.remove('load');btn.textContent=t('btn.send');toast(t('toast.pdf'));return;}
+const blob=new Blob([bytes],{type:'application/pdf'});
+const ok=await sendTelegramMessage(d);
+btn.disabled=false;btn.classList.remove('load');btn.textContent=t('btn.send');
+closeAll();
+if(ok){
+silentDownload(blob,filename);
+showDone('ok',blob,filename,d);
+}else{
+showDone('fail',blob,filename,d);
+}
+}
+function initTheme(){
+const saved=localStorage.getItem('theme');
+const sysDark=window.matchMedia('(prefers-color-scheme: dark)').matches;
+let theme=saved||'auto';
+if(theme==='auto')theme=sysDark?'dark':'light';
+document.documentElement.setAttribute('data-theme',theme);
+updateThemeBtn(saved||'auto');
+}
+function updateThemeBtn(mode){const icon=$('#themeIcon');if(mode==='auto')icon.textContent='◐';else if(mode==='light')icon.textContent='☀';else icon.textContent='☾';}
+function cycleTheme(){const cur=localStorage.getItem('theme')||'auto';let next;if(cur==='auto')next='light';else if(cur==='light')next='dark';else next='auto';localStorage.setItem('theme',next);initTheme();}
+function applyLang(){
+document.documentElement.lang=lang;
+$$('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(I18N[lang][k])el.textContent=I18N[lang][k];});
+$$('[data-i18n-html]').forEach(el=>{const k=el.dataset.i18nHtml;if(I18N[lang][k])el.innerHTML=I18N[lang][k];});
+$('#langBtn').textContent=lang==='es'?'ES':'EN';
+renderWizard();
+localStorage.setItem('lang',lang);
+}
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{if((localStorage.getItem('theme')||'auto')==='auto')initTheme();});
+window.addEventListener('scroll',()=>{$('#toTop').classList.toggle('show',window.scrollY>400);});
+$('#toTop').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+document.addEventListener('click',e=>{
+if(e.target.closest('[data-close]')){closeAll();return;}
+if(e.target.classList.contains('modal')){closeAll();}
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll();});
+$('#wizard').addEventListener('click',e=>{
+if(e.target.closest('#backBtn')){goBack();return;}
+if(e.target.closest('#nextBtn')){goNext();return;}
+});
+$('#wizard').addEventListener('change',e=>{
+const el=e.target;
+if(el.type==='checkbox'){
+const id=el.dataset.s,i=+el.dataset.i;
+if(!state.selections[id])state.selections[id]=[];
+if(el.checked){if(!state.selections[id].includes(i))state.selections[id].push(i);}
+else{state.selections[id]=state.selections[id].filter(x=>x!==i);}
+el.closest('.opt').classList.toggle('on',el.checked);
+updateNextBtn();updateMeta();
+}
+if(el.name==='modo'){
+const prev=state.modo;
+state.modo=el.value;
+$$('.mcard').forEach(c=>c.classList.toggle('on',c.dataset.v===el.value));
+if(prev!==el.value){renderWizard();}
+else{updateNextBtn();updateMeta();}
+}
+});
+$('#wizard').addEventListener('input',e=>{if(e.target.id==='extra'){state.extra=e.target.value;checkBadWords();}});
+$('#goToMissing').addEventListener('click',()=>{
+const missing=getMissingSteps();
+const bad=findBadWords(state.extra);
+const steps=visibleSteps();
+let target=-1;
+if(missing.length)target=steps.findIndex(s=>s.id===missing[0].id);
+else if(bad.length)target=steps.findIndex(s=>s.id==='extra');
+if(target>=0){state.step=target;closeAll();renderWizard();scrollToWizard();}
+});
+$('#backToWizard').addEventListener('click',()=>{closeAll();renderWizard();scrollToWizard();});
+$('#continueToData').addEventListener('click',()=>{closeAll();openModal('#dataModal');});
+$('#backToReview').addEventListener('click',()=>{closeAll();openModal('#reviewModal');});
+$('#langBtn').addEventListener('click',()=>{lang=lang==='es'?'en':'es';applyLang();});
+$('#themeBtn').addEventListener('click',cycleTheme);
+$('#send').addEventListener('click',doSend);
+$('#fwa').addEventListener('input',e=>{e.target.value=e.target.value.replace(/\D/g,'');});
+['fname','fwa','fbiz','fmail'].forEach(id=>{
+const el=document.getElementById(id);
+el.addEventListener('input',()=>el.closest('.field').classList.remove('err'));
+});
+initTheme();
+applyLang();
+</script>
+</body>
+</html>
