@@ -51,6 +51,7 @@ body{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,s
 .opt.on .box::after{opacity:1;transform:rotate(45deg) scale(1)}
 .opt.on .txt{font-weight:600}
 .txt{transition:.2s}
+.auto-badge{display:inline-block;font-size:11px;margin-left:4px;opacity:.85;vertical-align:middle;animation:pop .35s ease}
 .modes{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .mcard{position:relative;display:block;padding:18px;border:1.5px solid var(--ln);border-radius:14px;cursor:pointer;transition:.22s;background:var(--sf)}
 .mcard:hover{border-color:#c6cddc;transform:translateY(-2px)}
@@ -209,8 +210,24 @@ const DATA=[
 {id:'modob',n:'2.2',t:'Modo B · Funciones adicionales',d:'Solo si eliges compras online',icon:'🚚',items:['Carrito de compras','Métodos de pago','Métodos de envío (mensajería)','Zonas de envío','Cambiar/cancelar pedido','Vinculación con Telegram']},
 {id:'integr',n:'3',t:'Integraciones opcionales',d:'',icon:'🔌',items:['Bot de Telegram (avisos de pedidos, información del negocio, notificaciones al cliente)','Descarga de APK para Android','Multi-local (varias sucursales con inventario propio)','Creación de cuentas y servicios Online con planes gratuitos (limitados)']}
 ];
+const AUTO_LINKS={
+admon:{
+0:[{s:'comun',i:0},{s:'comun',i:5}],
+1:[{s:'comun',i:0}],
+5:[{s:'comun',i:4}],
+7:[{s:'comun',i:4},{s:'modob',i:5}]
+},
+dep:{
+0:[{s:'modob',i:0},{s:'modob',i:4}],
+1:[{s:'comun',i:1}],
+2:[{s:'comun',i:3}],
+3:[{s:'comun',i:0}],
+4:[{s:'comun',i:4}],
+5:[{s:'comun',i:0},{s:'comun',i:1}]
+}
+};
 const I18N={
-es:{'hero.badge':'Propuesta de desarrollo','hero.title':'Planilla de <span>requerimientos</span>','hero.lead':'Marca las secciones que necesitas para tu aplicación. Al final podrás revisar tu solicitud, completar tus datos y enviarla al desarrollador.','review.title':'Resumen de tu solicitud','review.sub':'Revisa tu selección. Puedes volver a la planilla para modificarla o continuar con tus datos.','review.back':'← Volver a la planilla','review.next':'Continuar →','data.title':'Datos de contacto','data.sub':'Completa tus datos para enviar la solicitud al desarrollador.','data.back':'← Volver al resumen','btn.cancel':'Cerrar','btn.send':'Confirmar y enviar','mode.hint':'Elige un modo de funcionamiento','mode.a':'Modo A','mode.at':'Solo catálogo','mode.ad':'Muestra productos, precios y ofertas. El cliente contacta por WhatsApp para realizar el pedido.','mode.b':'Modo B','mode.bt':'Catálogo + compras online','mode.bd':'Incluye todo lo del Modo A más carrito de compras, pago y envío a domicilio.','sec.extra':'Peticiones del cliente','sec.extraPh':'Comentarios adicionales','wiz.back':'Atrás','wiz.next':'Siguiente','wiz.finish':'Finalizar','step.admonD':'Elige las funciones de gestión para tu app de escritorio','step.depD':'Elige qué necesita la tienda online del panel de administración','step.modeD':'Define cómo funcionará la tienda para tus clientes','step.comunD':'Funciones que tendrá la tienda en cualquier modo','step.modobD':'Funciones extra para compras online','step.integrD':'Servicios adicionales opcionales','step.extraD':'Cuéntanos cualquier detalle adicional','missing.title':'Faltan puntos obligatorios','missing.sub':'Completa lo siguiente antes de continuar:','missing.go':'Ir al paso faltante','bwHead':'Se detectaron palabras no permitidas','bwViolation':'Contiene palabras no permitidas','done.okTitle':'Solicitud enviada','done.okText':'Tu solicitud llegó al desarrollador por Telegram.','done.failTitle':'Envío manual','done.failText':'Copia su solicitud para enviar el mensaje al desarrollador.','done.openTg':'Abrir Telegram','done.copy':'Copiar solicitud','done.copied':'Copiado ✓','badWords':'Contiene palabras no permitidas','invalidMail':'Correo inválido','toast.copied':'Mensaje copiado al portapapeles'}, en:{'hero.badge':'Development proposal','hero.title':'Requirements <span>sheet</span>','hero.lead':'Select the sections you need for your application. At the end you can review your request, fill in your details and send it to the developer.','review.title':'Request summary','review.sub':'Review your selection. You can go back to the sheet to modify it or continue with your details.','review.back':'← Back to sheet','review.next':'Continue →','data.title':'Contact details','data.sub':'Complete your details to send the request to the developer.','data.back':'← Back to summary','btn.cancel':'Close','btn.send':'Confirm & send','mode.hint':'Choose an operating mode','mode.a':'Mode A','mode.at':'Catalog only','mode.ad':'Shows products, prices and offers. The customer contacts via WhatsApp to place the order.','mode.b':'Mode B','mode.bt':'Catalog + online purchases','mode.bd':'Includes everything from Mode A plus shopping cart, payment and home delivery.','sec.extra':'Client requests','sec.extraPh':'Additional comments','wiz.back':'Back','wiz.next':'Next','wiz.finish':'Finish','step.admonD':'Choose the management features for your desktop app','step.depD':'Choose what the online store needs from the admin panel','step.modeD':'Define how the store will work for your customers','step.comunD':'Features the store will have in any mode','step.modobD':'Extra features for online purchases','step.integrD':'Optional additional services','step.extraD':'Tell us any additional details','missing.title':'Missing required points','missing.sub':'Complete the following before continuing:','missing.go':'Go to missing step','bwHead':'Forbidden words detected','bwViolation':'Contains forbidden words','done.okTitle':'Request sent','done.okText':'Your request reached the developer via Telegram.','done.failTitle':'Manual send','done.failText':'The message is copied. Paste it in the chat with @wRedFoxw to send your request.','done.openTg':'Open Telegram','done.copy':'Copy request','done.copied':'Copied ✓','badWords':'Contains forbidden words','invalidMail':'Invalid email','toast.copied':'Message copied to clipboard'}
+es:{'hero.badge':'Propuesta de desarrollo','hero.title':'Planilla de <span>requerimientos</span>','hero.lead':'Marca las secciones que necesitas para tu aplicación. Al final podrás revisar tu solicitud, completar tus datos y enviarla al desarrollador.','review.title':'Resumen de tu solicitud','review.sub':'Revisa tu selección. Puedes volver a la planilla para modificarla o continuar con tus datos.','review.back':'← Volver a la planilla','review.next':'Continuar →','data.title':'Datos de contacto','data.sub':'Completa tus datos para enviar la solicitud al desarrollador.','data.back':'← Volver al resumen','btn.cancel':'Cerrar','btn.send':'Confirmar y enviar','mode.hint':'Elige un modo de funcionamiento','mode.a':'Modo A','mode.at':'Solo catálogo','mode.ad':'Muestra productos, precios y ofertas. El cliente contacta por WhatsApp para realizar el pedido.','mode.b':'Modo B','mode.bt':'Catálogo + compras online','mode.bd':'Incluye todo lo del Modo A más carrito de compras, pago y envío a domicilio.','sec.extra':'Peticiones del cliente','sec.extraPh':'Comentarios adicionales','wiz.back':'Atrás','wiz.next':'Siguiente','wiz.finish':'Finalizar','step.admonD':'Elige las funciones de gestión para tu app de escritorio','step.depD':'Elige qué necesita la tienda online del panel de administración','step.modeD':'Define cómo funcionará la tienda para tus clientes','step.comunD':'Funciones que tendrá la tienda en cualquier modo','step.modobD':'Funciones extra para compras online','step.integrD':'Servicios adicionales opcionales','step.extraD':'Cuéntanos cualquier detalle adicional','missing.title':'Faltan puntos obligatorios','missing.sub':'Completa lo siguiente antes de continuar:','missing.go':'Ir al paso faltante','bwHead':'Se detectaron palabras no permitidas','bwViolation':'Contiene palabras no permitidas','done.okTitle':'Solicitud enviada','done.okText':'Tu solicitud llegó al desarrollador por Telegram.','done.failTitle':'Envío manual','done.failText':'Copia su solicitud para enviar el mensaje al desarrollador.','done.openTg':'Abrir Telegram','done.copy':'Copiar solicitud','done.copied':'Copiado ✓','badWords':'Contiene palabras no permitidas','invalidMail':'Correo inválido','toast.copied':'Mensaje copiado al portapapeles','toast.autoLink':'🔗 {n} dependencia{s} vinculada{s} automáticamente'}, en:{'hero.badge':'Development proposal','hero.title':'Requirements <span>sheet</span>','hero.lead':'Select the sections you need for your application. At the end you can review your request, fill in your details and send it to the developer.','review.title':'Request summary','review.sub':'Review your selection. You can go back to the sheet to modify it or continue with your details.','review.back':'← Back to sheet','review.next':'Continue →','data.title':'Contact details','data.sub':'Complete your details to send the request to the developer.','data.back':'← Back to summary','btn.cancel':'Close','btn.send':'Confirm & send','mode.hint':'Choose an operating mode','mode.a':'Mode A','mode.at':'Catalog only','mode.ad':'Shows products, prices and offers. The customer contacts via WhatsApp to place the order.','mode.b':'Mode B','mode.bt':'Catalog + online purchases','mode.bd':'Includes everything from Mode A plus shopping cart, payment and home delivery.','sec.extra':'Client requests','sec.extraPh':'Additional comments','wiz.back':'Back','wiz.next':'Next','wiz.finish':'Finish','step.admonD':'Choose the management features for your desktop app','step.depD':'Choose what the online store needs from the admin panel','step.modeD':'Define how the store will work for your customers','step.comunD':'Features the store will have in any mode','step.modobD':'Extra features for online purchases','step.integrD':'Optional additional services','step.extraD':'Tell us any additional details','missing.title':'Missing required points','missing.sub':'Complete the following before continuing:','missing.go':'Go to missing step','bwHead':'Forbidden words detected','bwViolation':'Contains forbidden words','done.okTitle':'Request sent','done.okText':'Your request reached the developer via Telegram.','done.failTitle':'Manual send','done.failText':'Copy your request to send the message to the developer.','done.openTg':'Open Telegram','done.copy':'Copy request','done.copied':'Copied ✓','badWords':'Contains forbidden words','invalidMail':'Invalid email','toast.copied':'Message copied to clipboard','toast.autoLink':'🔗 {n} linked dependenc{s} automatically'}
 };
 const BAD=['mierda','mierdas','puta','puto','putas','putos','putita','putito','cabron','cabrona','cabrones','pendejo','pendeja','pendejos','pendejas','verga','vergudo','chinga','chingar','chingada','chingado','chingon','joder','jodete','jodido','jodida','coño','carajo','marica','maricon','gonorrea','hijueputa','hijoputa','malparido','malparida','culiao','culiada','boludo','boluda','pelotudo','pelotuda','gilipollas','imbecil','estupido','estupida','idiota','pinga','picha','pichula','cagar','cagada','cagon','cagona','mamada','mamadas','culero','culera','fuck','fucking','fucker','shit','shitty','bitch','asshole','bastard','damn','dick','pussy','cunt','whore','slut','nigger','faggot','motherfucker','retard','retarded','sonofabitch'];
 function normalize(s){return String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,' ');}
@@ -218,11 +235,33 @@ function findBadWords(txt){const n=normalize(txt);const f=[];BAD.forEach(w=>{con
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function escTG(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 let lang=localStorage.getItem('lang')||'es';
-const state={step:0,modo:null,selections:{},extra:''};
+const state={step:0,modo:null,selections:{},extra:'',autoSet:{}};
 let firstWizardRender=true;
 const $=s=>document.querySelector(s);
 const $$=s=>Array.from(document.querySelectorAll(s));
 function t(k){return I18N[lang][k]||k;}
+function applyAutoLinks(sectionId,index){
+const links=AUTO_LINKS[sectionId];
+if(!links||!links[index])return 0;
+let count=0;
+links[index].forEach(target=>{
+if(!state.selections[target.s])state.selections[target.s]=[];
+if(!state.autoSet[target.s])state.autoSet[target.s]=new Set();
+if(!state.selections[target.s].includes(target.i)){
+state.selections[target.s].push(target.i);
+state.autoSet[target.s].add(target.i);
+count++;
+}
+});
+return count;
+}
+function autoLinkMessage(n){
+if(n<=0)return '';
+const s=n>1?'s':'';
+const tmpl=I18N[lang]['toast.autoLink']||'';
+if(lang==='es')return '🔗 '+n+' dependencia'+s+' vinculada'+s+' automáticamente';
+return '🔗 '+n+' linked dependenc'+(n>1?'ies':'y')+' automatically';
+}
 function getStepFace(step){
 if(step.id==='extra'){
 if(findBadWords(state.extra).length)return '😠';
@@ -309,8 +348,13 @@ function renderStepContent(step){if(step.id==='mode')return renderModes();if(ste
 function renderCheckboxes(id){
 const data=DATA.find(d=>d.id===id);
 const sel=state.selections[id]||[];
+const auto=state.autoSet[id]||new Set();
 let h='<div class="grid">';
-data.items.forEach((it,i)=>{const on=sel.includes(i);h+='<label class="opt'+(on?' on':'')+'"><input type="checkbox" data-s="'+id+'" data-i="'+i+'"'+(on?' checked':'')+'><span class="box"></span><span class="txt">'+esc(it)+'</span></label>';});
+data.items.forEach((it,i)=>{
+const on=sel.includes(i);
+const isAuto=on&&auto.has(i);
+h+='<label class="opt'+(on?' on':'')+'"><input type="checkbox" data-s="'+id+'" data-i="'+i+'"'+(on?' checked':'')+'><span class="box"></span><span class="txt">'+esc(it)+(isAuto?' <span class="auto-badge" title="Vinculado automáticamente">🔗</span>':'')+'</span></label>';
+});
 h+='</div>';
 return h;
 }
@@ -385,6 +429,7 @@ let h='';
 if(state.modo)h+='<div class="sblock"><b>'+t('mode.hint')+'</b><div class="chips"><span class="chip">'+t(state.modo==='A'?'mode.a':'mode.b')+'</span></div></div>';
 DATA.forEach(s=>{
 if(s.mode)return;
+if(s.id==='modob'&&state.modo!=='B')return;
 const arr=state.selections[s.id]||[];
 if(!arr.length)return;
 h+='<div class="sblock"><b>'+s.n+' · '+esc(s.t)+'</b><div class="chips">'+arr.map(i=>'<span class="chip">'+esc(s.items[i])+'</span>').join('')+'</div></div>';
@@ -425,6 +470,7 @@ txt+='\n<b>'+escTG(s.n+' · '+s.t)+'</b>\n';
 txt+='🛒 <b>Modo:</b> '+modeText(d.modo)+'\n';
 return;
 }
+if(s.id==='modob'&&d.modo!=='B')return;
 const arr=d.sel[s.id]||[];
 if(!arr.length)return;
 txt+='\n<b>'+escTG(s.n+' · '+s.t)+'</b>\n';
@@ -449,6 +495,7 @@ txt+='\n['+s.n+' · '+s.t+']\n';
 txt+='🛒 Modo: '+modeText(d.modo)+'\n';
 return;
 }
+if(s.id==='modob'&&d.modo!=='B')return;
 const arr=d.sel[s.id]||[];
 if(!arr.length)return;
 txt+='\n['+s.n+' · '+s.t+']\n';
@@ -512,7 +559,6 @@ window.open('https://t.me/wRedFoxw','_blank');
 }
 function setBtnCopied(btn){
 if(!btn)return;
-const original=btn.textContent;
 btn.textContent=t('done.copied');
 btn.disabled=true;
 setTimeout(()=>{btn.textContent=t('done.copy');btn.disabled=false;},2000);
@@ -583,8 +629,18 @@ const el=e.target;
 if(el.type==='checkbox'){
 const id=el.dataset.s,i=+el.dataset.i;
 if(!state.selections[id])state.selections[id]=[];
-if(el.checked){if(!state.selections[id].includes(i))state.selections[id].push(i);}
-else{state.selections[id]=state.selections[id].filter(x=>x!==i);}
+if(el.checked){
+if(!state.selections[id].includes(i))state.selections[id].push(i);
+if(id==='admon'||id==='dep'){
+const n=applyAutoLinks(id,i);
+if(n>0)toast(autoLinkMessage(n));
+}
+}else{
+state.selections[id]=state.selections[id].filter(x=>x!==i);
+}
+if(state.autoSet[id]&&state.autoSet[id].has(i)){
+state.autoSet[id].delete(i);
+}
 el.closest('.opt').classList.toggle('on',el.checked);
 updateNextBtn();updateMeta();
 }
@@ -615,7 +671,7 @@ $('#send').addEventListener('click',doSend);
 $('#fwa').addEventListener('input',e=>{e.target.value=e.target.value.replace(/\D/g,'');});
 ['fname','fwa','fbiz','fmail'].forEach(id=>{
 const el=document.getElementById(id);
-el.addEventListener('input',()=>el.closest('.field').classList.remove('err'));
+el.addEventListener('input',()=>el.closest('.field').remove&&el.closest('.field').classList.remove('err'));
 });
 initTheme();
 applyLang();
