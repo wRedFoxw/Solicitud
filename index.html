@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#4f46e5">
-<title>Development request · Custom WebApps</title>
+<title>Solicitud de desarrollo · WebApps a medida</title>
 <style>
 :root{--bg:#f4f6fb;--sf:#fff;--ink:#0d1526;--mut:#5f6b7d;--ln:#e3e8f0;--ac:#4f46e5;--ac2:#7c3aed;--acSoft:rgba(79,70,229,.08);--acRing:rgba(79,70,229,.14);--ok:#0ea472;--bad:#e5484d;--warn:#f59e0b;--r:18px;--shadow:0 1px 2px rgba(16,24,40,.05),0 12px 28px -24px rgba(16,24,40,.35);--shadowLg:0 30px 60px -24px rgba(13,21,38,.35);--barBg:rgba(255,255,255,.86);--inputBg:#fff;--chipBg:rgba(79,70,229,.08);--chipInk:#3b32b5;--boxBorder:#c4ccdc;--modalBg:rgba(13,21,38,.48);--btnFrom:#4f46e5;--btnTo:#7c3aed;--btnShadow:0 10px 22px -10px rgba(79,70,229,.8);--btnShadowHover:0 14px 26px -10px rgba(79,70,229,.85)}
 [data-theme="dark"]{--bg:#0a0e17;--sf:#111827;--ink:#e8ecf3;--mut:#9aa7b8;--ln:#1f2a3a;--ac:#818cf8;--ac2:#a78bfa;--acSoft:rgba(129,140,248,.12);--acRing:rgba(129,140,248,.22);--ok:#34d399;--bad:#f87171;--warn:#fbbf24;--shadow:0 1px 2px rgba(0,0,0,.4),0 12px 28px -24px rgba(0,0,0,.7);--shadowLg:0 30px 60px -24px rgba(0,0,0,.8);--barBg:rgba(17,24,39,.86);--inputBg:#0f1723;--chipBg:rgba(129,140,248,.14);--chipInk:#c7d2fe;--boxBorder:#374151;--modalBg:rgba(0,0,0,.62);--btnFrom:#4338ca;--btnTo:#6d28d9;--btnShadow:0 10px 22px -10px rgba(67,56,202,.7);--btnShadowHover:0 14px 26px -10px rgba(67,56,202,.8)}
@@ -137,12 +137,10 @@ body{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,s
 #toTop.show{opacity:1;pointer-events:auto;transform:none}
 #toTop:hover{border-color:var(--ac);transform:translateY(-2px)}
 .info-modal-body{overflow-y:auto;min-height:0;padding-right:8px;text-align:left}
-.info-item-card{margin-bottom:14px;padding:14px 16px;background:var(--bg);border-radius:12px;border:1px solid var(--ln)}
-.info-item-head{display:flex;gap:10px;align-items:center;margin-bottom:8px}
-.info-item-icon{font-size:22px;line-height:1;flex:0 0 auto}
-.info-item-title{font-size:14.5px;font-weight:700;color:var(--ink);line-height:1.35}
-.info-section{padding-left:12px;border-left:3px solid var(--ac)}
-.info-section p{font-size:13.5px;color:var(--ink);line-height:1.55;margin:0}
+.info-list{list-style:none;padding:0;margin:0}
+.info-list li{position:relative;padding:11px 14px 11px 36px;margin-bottom:8px;background:var(--bg);border-radius:12px;border:1px solid var(--ln);font-size:13.5px;color:var(--ink);line-height:1.55}
+.info-list li::before{content:"›";position:absolute;left:16px;top:9px;color:var(--ac);font-weight:800;font-size:16px;line-height:1.4}
+.info-list li b{color:var(--ac);font-weight:700}
 @media(max-width:720px){
 body{padding-bottom:20px}
 .hero{padding:68px 0 2px}
@@ -198,9 +196,8 @@ body{padding-bottom:20px}
 .ic{width:52px;height:52px;font-size:24px;margin:4px auto 10px}
 .badword-panel{padding:10px 12px}
 .bw-word{font-size:11.5px}
-.info-item-card{padding:12px;margin-bottom:12px}
-.info-item-title{font-size:13.5px}
-.info-section p{font-size:13px}
+.info-list li{font-size:13px;padding:10px 12px 10px 32px}
+.info-list li::before{left:14px;top:8px;font-size:15px}
 }
 </style>
 </head>
@@ -208,20 +205,20 @@ body{padding-bottom:20px}
 <div class="bg"></div>
 <div class="progbar"><div class="wrap"><div class="prog"><i id="prog"></i></div></div></div>
 <div class="toolbar">
-<button class="tbtn" id="langBtn" title="Change language">EN</button>
-<button class="tbtn" id="themeBtn" title="Theme"><span id="themeIcon">◐</span></button>
+<button class="tbtn" id="langBtn" title="Change language / Cambiar idioma">ES</button>
+<button class="tbtn" id="themeBtn" title="Theme / Tema"><span id="themeIcon">◐</span></button>
 </div>
-<header class="hero"><div class="wrap"><span class="badge" data-i18n="hero.badge">Development proposal</span><h1 data-i18n-html="hero.title">Requirements <span>sheet</span></h1><p class="lead" data-i18n="hero.lead">Select the sections you need for your application. At the end you can review your request, fill in your details and send it to the developer.</p></div></header>
+<header class="hero"><div class="wrap"><span class="badge" data-i18n="hero.badge">Propuesta de desarrollo</span><h1 data-i18n-html="hero.title">Planilla de <span>requerimientos</span></h1><p class="lead" data-i18n="hero.lead">Marca las secciones que necesitas para tu aplicación. Al final podrás revisar tu solicitud, completar tus datos y enviarla al desarrollador.</p></div></header>
 <main class="wrap"><div id="wizard"></div></main>
-<button id="toTop" title="Back to top" aria-label="Back to top">↑</button>
+<button id="toTop" title="Ir arriba" aria-label="Ir arriba">↑</button>
 
-<div class="modal" id="missingModal"><div class="sheet center"><div class="ic warn">!</div><h2 data-i18n="missing.title">Missing required points</h2><p class="sub" data-i18n="missing.sub">Complete the following before continuing:</p><div class="missing-list" id="missingList"></div><div class="mfoot"><button class="btn g" data-close data-i18n="btn.cancel">Close</button><button class="btn p" id="goToMissing" data-i18n="missing.go">Go to missing step</button></div></div></div>
+<div class="modal" id="missingModal"><div class="sheet center"><div class="ic warn">!</div><h2 data-i18n="missing.title">Faltan puntos obligatorios</h2><p class="sub" data-i18n="missing.sub">Completa lo siguiente antes de continuar:</p><div class="missing-list" id="missingList"></div><div class="mfoot"><button class="btn g" data-close data-i18n="btn.cancel">Cerrar</button><button class="btn p" id="goToMissing" data-i18n="missing.go">Ir al paso faltante</button></div></div></div>
 
-<div class="modal" id="reviewModal"><div class="sheet"><div class="mhead"><h2 data-i18n="review.title">Request summary</h2><button class="x" data-close aria-label="Close">&times;</button></div><p class="sub" data-i18n="review.sub">Review your selection. You can go back to the sheet to modify it or continue with your details.</p><div id="summary"></div><div class="mfoot"><button class="btn g" id="backToWizard" data-i18n="review.back">← Back to sheet</button><button class="btn p" id="continueToData" data-i18n="review.next">Continue →</button></div></div></div>
+<div class="modal" id="reviewModal"><div class="sheet"><div class="mhead"><h2 data-i18n="review.title">Resumen de tu solicitud</h2><button class="x" data-close aria-label="Cerrar">&times;</button></div><p class="sub" data-i18n="review.sub">Revisa tu selección. Puedes volver a la planilla para modificarla o continuar con tus datos.</p><div id="summary"></div><div class="mfoot"><button class="btn g" id="backToWizard" data-i18n="review.back">← Volver a la planilla</button><button class="btn p" id="continueToData" data-i18n="review.next">Continuar →</button></div></div></div>
 
-<div class="modal" id="dataModal"><div class="sheet"><div class="mhead"><h2 data-i18n="data.title">Contact details</h2><button class="x" data-close aria-label="Close">&times;</button></div><p class="sub" data-i18n="data.sub">Complete your details to send the request to the developer.</p><div class="fgroup"><div class="field"><input id="fname" placeholder=" " autocomplete="name"><label for="fname" data-i18n="form.name">Full name *</label><span class="msg"></span></div><div class="field"><input id="fwa" placeholder=" " inputmode="numeric" pattern="[0-9]*" autocomplete="tel"><label for="fwa" data-i18n="form.wa">WhatsApp *</label><span class="msg"></span></div><div class="field"><input id="fbiz" placeholder=" " autocomplete="organization"><label for="fbiz" data-i18n="form.biz">Business name *</label><span class="msg"></span></div><div class="field"><input id="fmail" placeholder=" " type="email" autocomplete="email"><label for="fmail" data-i18n="form.mail">Email (optional)</label><span class="msg"></span></div></div><div class="mfoot"><button class="btn g" id="backToReview" data-i18n="data.back">← Back to summary</button><button class="btn p" id="send" data-i18n="btn.send">Confirm & send</button></div></div></div>
+<div class="modal" id="dataModal"><div class="sheet"><div class="mhead"><h2 data-i18n="data.title">Datos de contacto</h2><button class="x" data-close aria-label="Cerrar">&times;</button></div><p class="sub" data-i18n="data.sub">Completa tus datos para enviar la solicitud al desarrollador.</p><div class="fgroup"><div class="field"><input id="fname" placeholder=" " autocomplete="name"><label for="fname" data-i18n="form.name">Nombre y apellido *</label><span class="msg"></span></div><div class="field"><input id="fwa" placeholder=" " inputmode="numeric" pattern="[0-9]*" autocomplete="tel"><label for="fwa" data-i18n="form.wa">WhatsApp *</label><span class="msg"></span></div><div class="field"><input id="fbiz" placeholder=" " autocomplete="organization"><label for="fbiz" data-i18n="form.biz">Nombre del negocio *</label><span class="msg"></span></div><div class="field"><input id="fmail" placeholder=" " type="email" autocomplete="email"><label for="fmail" data-i18n="form.mail">Correo electrónico (opcional)</label><span class="msg"></span></div></div><div class="mfoot"><button class="btn g" id="backToReview" data-i18n="data.back">← Volver al resumen</button><button class="btn p" id="send" data-i18n="btn.send">Confirmar y enviar</button></div></div></div>
 
-<div class="modal" id="infoModal"><div class="sheet"><div class="mhead"><h2 id="infoModalTitle">Detailed information</h2><button class="x" data-close aria-label="Close">&times;</button></div><p class="sub" id="infoModalSub">Usage and administrative management details of this feature.</p><div id="infoModalBody" class="info-modal-body"></div><div class="mfoot"><button class="btn p" data-close data-i18n="btn.cancel">Close</button></div></div></div>
+<div class="modal" id="infoModal"><div class="sheet"><div class="mhead"><h2 id="infoModalTitle">Información</h2><button class="x" data-close aria-label="Cerrar">&times;</button></div><p class="sub" id="infoModalSub">Funciones y pestañas disponibles en esta sección.</p><div id="infoModalBody" class="info-modal-body"></div><div class="mfoot"><button class="btn p" data-close data-i18n="btn.cancel">Cerrar</button></div></div></div>
 
 <div class="modal" id="doneModal"><div class="sheet center"></div></div>
 <div class="toast" id="toast"></div>
@@ -229,194 +226,137 @@ body{padding-bottom:20px}
 <script>
 const CFG={botToken:'PEGA_AQUI_TU_TOKEN_DE_BOT',chatId:'@wRedFoxw'};
 const DATA=[
-{id:'admon',n:'1',t:'Admin App',d:'Desktop application for Windows',icon:'💻',items:['Management: Categories, suppliers, cards, currencies, stores.','Products: Create/edit products, prices, and images.','Purchases: Merchandise entry and costs by supplier.','Sales: List, reports, transfers, and cash shifts.','Expenses: Registration and summary of operating expenses.','Inventory: Stock by store, minimums, alerts, and movements.','Users: Roles, permissions, and session control.','System: Telegram, WhatsApp, APK, and app version.']},
-{id:'dep',n:'1.1',t:'Client App Dependencies',d:'Online store',icon:'🔗',items:['Orders: Online orders and status control.','Offers: Promotions with products, price, and expiry.','Schedules: Opening/closing and forced mode.','Information: Slogan, contact, and business links.','Notifications: Sending push messages to customers.','Tags: Featured, best sellers, new, and on offer.','Connections: Live monitoring of connected clients.','Analytics: Sales graphs and product acceptance.']},
-{id:'mode',n:'2',t:'Client App (Online Store)',d:'WebApp compatible with all browser devices',icon:'🛒',mode:true},
-{id:'comun',n:'2.1',t:'Common features',d:'Applies to any operating mode',icon:'⚙️',items:['Catalog by categories','Offers and discounts','Search','Open/closed status','Notifications','Currency converter (based on exchange rate)']},
-{id:'modob',n:'2.2',t:'Mode B · Additional features',d:'Only if you choose online purchases',icon:'🚚',items:['Shopping cart','Payment methods','Shipping methods (delivery)','Shipping zones','Change/cancel order','Telegram integration']},
-{id:'integr',n:'3',t:'Optional integrations',d:'',icon:'🔌',items:['Telegram Bot (order alerts, business info, customer notifications)','Android APK download','Multi-store (multiple branches with own inventory)','Online accounts and services with free plans (limited)']}
+{id:'admon',n:'1',
+t:{es:'App Administración',en:'Admin App'},
+d:{es:'Aplicación de escritorio para Windows',en:'Desktop application for Windows'},
+icon:'💻',
+items:{
+es:['Gestión: Categorías, proveedores, tarjetas, monedas, locales.','Productos: Alta/edición de productos, precios e imágenes.','Compras: Entrada de mercancía y costos por proveedor.','Ventas: Lista, reportes, transferencias y turnos de caja.','Gastos: Registro y resumen de gastos operativos.','Inventario: Stock por local, mínimos, alertas y movimientos.','Usuarios: Roles, permisos y control de sesiones.','Sistema: Telegram, WhatsApp, APK y versión de la app.'],
+en:['Management: Categories, suppliers, cards, currencies, stores.','Products: Create/edit products, prices, and images.','Purchases: Merchandise entry and costs by supplier.','Sales: List, reports, transfers, and cash shifts.','Expenses: Registration and summary of operating expenses.','Inventory: Stock by store, minimums, alerts, and movements.','Users: Roles, permissions, and session control.','System: Telegram, WhatsApp, APK, and app version.']
+}},
+{id:'dep',n:'1.1',
+t:{es:'Dependencias con la App Cliente',en:'Client App Dependencies'},
+d:{es:'Tienda online',en:'Online store'},
+icon:'🔗',
+items:{
+es:['Órdenes: Pedidos online y control de sus estados.','Ofertas: Promociones con productos, precio y vencimiento.','Horarios: Apertura/cierre y modo forzado de la tienda.','Información: Slogan, contacto y enlaces del negocio.','Notificaciones: Envío de mensajes push a los clientes.','Etiquetas: Destacados, más vendidos, nuevos y en oferta.','Conexiones: Monitoreo en vivo de clientes conectados.','Analíticas: Gráficos de ventas y aceptación de productos.'],
+en:['Orders: Online orders and status control.','Offers: Promotions with products, price, and expiry.','Schedules: Opening/closing and forced mode.','Information: Slogan, contact, and business links.','Notifications: Sending push messages to customers.','Tags: Featured, best sellers, new, and on offer.','Connections: Live monitoring of connected clients.','Analytics: Sales graphs and product acceptance.']
+}},
+{id:'mode',n:'2',
+t:{es:'App Cliente (Tienda Online)',en:'Client App (Online Store)'},
+d:{es:'WebApp compatible con todos los dispositivos con navegador',en:'WebApp compatible with all browser devices'},
+icon:'🛒',mode:true,items:{es:[],en:[]}},
+{id:'comun',n:'2.1',
+t:{es:'Funciones comunes',en:'Common features'},
+d:{es:'Aplican a cualquier modo de funcionamiento',en:'Applies to any operating mode'},
+icon:'⚙️',
+items:{
+es:['Catálogo por categorías','Ofertas y descuentos','Buscador','Estado abierto/cerrado','Notificaciones','Conversor de moneda (según su tasa de cambio)'],
+en:['Catalog by categories','Offers and discounts','Search','Open/closed status','Notifications','Currency converter (based on exchange rate)']
+}},
+{id:'modob',n:'2.2',
+t:{es:'Modo B · Funciones adicionales',en:'Mode B · Additional features'},
+d:{es:'Solo si eliges compras online',en:'Only if you choose online purchases'},
+icon:'🚚',
+items:{
+es:['Carrito de compras','Métodos de pago','Métodos de envío (mensajería)','Zonas de envío','Cambiar/cancelar pedido','Vinculación con Telegram'],
+en:['Shopping cart','Payment methods','Shipping methods (delivery)','Shipping zones','Change/cancel order','Telegram integration']
+}},
+{id:'integr',n:'3',
+t:{es:'Integraciones opcionales',en:'Optional integrations'},
+d:{es:'',en:''},
+icon:'🔌',
+items:{
+es:['Bot de Telegram (avisos de pedidos, información del negocio, notificaciones al cliente)','Descarga de APK para Android','Multi-local (varias sucursales con inventario propio)','Creación de cuentas y servicios Online con planes gratuitos (limitados)'],
+en:['Telegram Bot (order alerts, business info, customer notifications)','Android APK download','Multi-store (multiple branches with own inventory)','Online accounts and services with free plans (limited)']
+}}
 ];
 const AUTO_LINKS={
 admon:{0:[{s:'comun',i:0},{s:'comun',i:5}],1:[{s:'comun',i:0}],5:[{s:'comun',i:4}],7:[{s:'comun',i:4},{s:'modob',i:5}]},
 dep:{0:[{s:'modob',i:0},{s:'modob',i:4}],1:[{s:'comun',i:1}],2:[{s:'comun',i:3}],3:[{s:'comun',i:0}],4:[{s:'comun',i:4}],5:[{s:'comun',i:0},{s:'comun',i:1}]}
 };
 const ITEM_INFO={
-'admon-0':{
-title:{es:'Gestión: Categorías, proveedores, tarjetas, monedas, locales',en:'Management: Categories, suppliers, cards, currencies, stores'},
-sub:{es:'Módulo "Gestión" del panel admin — CRUD de entidades base del sistema.',en:'"Management" module in the admin panel — CRUD of core system entities.'},
-sections:[
-{icon:'🗂️',name:{es:'Categorías',en:'Categories'},text:{es:'Agrupa productos por tipo. Cada categoría tiene nombre único, descripción y estado activo/inactivo. Se usa en filtros de productos, inventario y reportes. Al eliminar una categoría con productos asociados, el sistema lo impide.',en:'Groups products by type. Each category has a unique name, description, and active/inactive status. Used in product filters, inventory, and reports. The system prevents deleting a category with associated products.'}},
-{icon:'🚚',name:{es:'Proveedores',en:'Suppliers'},text:{es:'Registro con nombre único, CI (también único) y teléfono. Se vinculan a compras y al código de barras: el tercer par de dígitos identifica al proveedor de la última compra registrada del producto.',en:'Registry with unique name, unique ID number, and phone. Linked to purchases and barcodes: the third digit pair identifies the supplier of the product\'s last recorded purchase.'}},
-{icon:'💳',name:{es:'Tarjetas de pago',en:'Payment cards'},text:{es:'Tarjetas bancarias para pagos por transferencia. Valida exactamente 16 dígitos y detecta el banco por los primeros 6 dígitos, cruzando con la tabla de códigos bancarios. Estado activo/inactivo por tarjeta.',en:'Bank cards for transfer payments. Validates exactly 16 digits and detects the bank from the first 6 digits, matching the bank codes table. Active/inactive status per card.'}},
-{icon:'💱',name:{es:'Monedas',en:'Currencies'},text:{es:'Sistema multimoneda: código (USD, EUR, etc.), tasa de cambio respecto a CUP, indicador de primaria y estado. La moneda primaria aparece primero en la app cliente y define el conversor. CUP no se puede eliminar ni modificar su tasa.',en:'Multi-currency system: code (USD, EUR, etc.), exchange rate vs CUP, primary flag, and status. The primary currency appears first in the client app and defines the converter. CUP cannot be deleted nor have its rate modified.'}},
-{icon:'🏪',name:{es:'Locales',en:'Stores'},text:{es:'Sucursales con inventario propio (multi-local). Datos: nombre, dirección, teléfono, estado, indicador "Almacén Principal" y URL de base de datos remota. El principal recibe las compras, actúa como nodo central y no puede eliminarse.',en:'Branches with their own inventory (multi-store). Data: name, address, phone, status, "Main Warehouse" flag, and remote database URL. The main store receives purchases, acts as central node, and cannot be deleted.'}}
-]},
-'admon-1':{
-title:{es:'Productos: Alta/edición de productos, precios e imágenes',en:'Products: Create/edit products, prices, and images'},
-sub:{es:'Módulo "Productos" del panel admin — CRUD principal del catálogo.',en:'"Products" module in the admin panel — main catalog CRUD.'},
-sections:[
-{icon:'📦',name:{es:'CRUD de productos',en:'Product CRUD'},text:{es:'Nombre, descripción, precio de venta, precio de oferta, código de barras, categoría, estado y etiquetas (nuevo, oferta, destacado, más vendido). No permite nombres duplicados. Un producto con stock 0 no puede activarse; debe agregarse inventario primero.',en:'Name, description, sale price, offer price, barcode, category, status, and tags (new, offer, featured, best seller). Does not allow duplicate names. A product with stock 0 cannot be activated; inventory must be added first.'}},
-{icon:'🖼️',name:{es:'Imágenes',en:'Images'},text:{es:'Se procesan automáticamente en 3 tamaños: grande 600px, mediano 400px y thumbnail 200px. Compresión con WebP y JPEG progresivo. Muestra progreso de subida con tamaño, velocidad y porcentaje en tiempo real.',en:'Automatically processed in 3 sizes: large 600px, medium 400px, and thumbnail 200px. WebP and progressive JPEG compression. Shows upload progress with size, speed, and percentage in real time.'}},
-{icon:'🏷️',name:{es:'Atributos personalizados',en:'Custom attributes'},text:{es:'Características como talla, color o sabor. Se definen globalmente en "Gestionar atributos" (nombre, descripción, estado) y se asignan por producto con un valor libre. Se muestran en el detalle del producto en la app cliente.',en:'Features such as size, color, or flavor. Defined globally in "Manage attributes" (name, description, status) and assigned per product with a free value. Displayed in product details in the client app.'}},
-{icon:'🔲',name:{es:'Código de barras',en:'Barcode'},text:{es:'Generación automática basada en 4 bloques de 2 dígitos: categoría + producto + proveedor + secuencia. Se genera desde el modal del producto o desde la pestaña "Códigos de barra". El proveedor se toma de la última compra registrada.',en:'Automatic generation based on 4 digit pairs: category + product + supplier + sequence. Generated from the product modal or the "Barcodes" tab. Supplier is taken from the last recorded purchase.'}},
-{icon:'⭐',name:{es:'Etiquetas automáticas',en:'Automatic tags'},text:{es:'Destacado: 50-99 likes. Más vendido: 100+ likes. Nuevo: menos de 15 días. Oferta: en oferta activa. Se calculan con el cron del servidor o manualmente desde la sección Etiquetas.',en:'Featured: 50-99 likes. Best seller: 100+ likes. New: under 15 days. Offer: in active offer. Calculated by the server cron or manually from the Tags section.'}}
-]},
-'admon-2':{
-title:{es:'Compras: Entrada de mercancía y costos por proveedor',en:'Purchases: Merchandise entry and costs by supplier'},
-sub:{es:'Módulo "Compras" del panel admin — ingreso de mercancía al inventario.',en:'"Purchases" module in the admin panel — merchandise intake into inventory.'},
-sections:[
-{icon:'📝',name:{es:'Registro',en:'Record'},text:{es:'Cada compra tiene fecha, proveedor, término de pago global (efectivo, transferencia, conciliación) y múltiples ítems. Cada ítem define producto, cantidad, costo unitario, precio de venta y término de pago individual.',en:'Each purchase has date, supplier, global payment term (cash, transfer, reconciliation), and multiple items. Each item defines product, quantity, unit cost, sale price, and individual payment term.'}},
-{icon:'📊',name:{es:'Efecto en inventario',en:'Inventory effect'},text:{es:'Al guardar: suma stock al producto, recalcula el costo promedio ponderado, actualiza el precio de venta si se especificó y registra la entrada en el inventario del local principal.',en:'On save: adds stock to the product, recalculates weighted average cost, updates the sale price if specified, and records the entry in the main store inventory.'}},
-{icon:'🗑️',name:{es:'Eliminación',en:'Deletion'},text:{es:'Al eliminar una compra: revierte el stock en todos los locales afectados, recalcula el costo, elimina movimientos de inventario y gastos vinculados. Si había devoluciones al proveedor, también las revierte.',en:'On delete: reverts stock across all affected stores, recalculates cost, removes inventory movements and linked expenses. If there were supplier returns, those are also reverted.'}},
-{icon:'📈',name:{es:'Totales',en:'Totals'},text:{es:'La barra superior muestra total de compras, costo total e inversión (costo total − costo de ventas físicas − costo de ventas online). Filtros por rango de fechas, proveedor y búsqueda.',en:'Top bar shows total purchases, total cost, and investment (total cost − physical sales cost − online sales cost). Filters by date range, supplier, and search.'}}
-]},
-'admon-3':{
-title:{es:'Ventas: Lista, reportes, transferencias y turnos de caja',en:'Sales: List, reports, transfers, and cash shifts'},
-sub:{es:'Módulo "Ventas" del panel admin — control de ventas físicas.',en:'"Sales" module in the admin panel — physical sales control.'},
-sections:[
-{icon:'📋',name:{es:'Lista de ventas',en:'Sales list'},text:{es:'Ventas físicas con filtros por período (diario/semanal/mensual/todas), local y búsqueda por factura, cliente, producto o código. Cada fila muestra factura, fecha, local, total, costo y ganancia.',en:'Physical sales with filters by period (daily/weekly/monthly/all), store, and search by invoice, customer, product, or code. Each row shows invoice, date, store, total, cost, and profit.'}},
-{icon:'📑',name:{es:'Reportes',en:'Reports'},text:{es:'Detalle de facturas con cliente, CI, cajero, local, método de pago, ID de transacción y acciones: ver, imprimir, eliminar y restaurar. Filtros por fecha, local y búsqueda por factura/cliente/CI.',en:'Invoice detail with customer, ID, cashier, store, payment method, transaction ID, and actions: view, print, delete, and restore. Filters by date, store, and search by invoice/customer/ID.'}},
-{icon:'💳',name:{es:'Transferencias',en:'Transfers'},text:{es:'Ventas pagadas por transferencia bancaria. Muestra factura, monto, ID de transacción, tarjeta y cliente. Filtros por fecha, local, cajero y búsqueda por ID de transacción.',en:'Sales paid by bank transfer. Shows invoice, amount, transaction ID, card, and customer. Filters by date, store, cashier, and search by transaction ID.'}},
-{icon:'🕐',name:{es:'Turnos de caja',en:'Cash shifts'},text:{es:'Apertura/cierre por cajero y local. Incluye monto inicial desglosado por moneda, ventas del turno y conciliación (cuadra/falta/sobra). Solo se eliminan si están cerrados y sin órdenes asociadas.',en:'Opening/closing per cashier and store. Includes opening balance broken down by currency, shift sales, and reconciliation (balanced/short/over). Only closed shifts without orders can be deleted.'}},
-{icon:'↩️',name:{es:'Devoluciones',en:'Returns'},text:{es:'Permite retirar ítems de una venta. Reembolso por método de pago original (efectivo por moneda, transferencia). Actualiza subtotal, total, descuento y stock. Si la orden queda vacía, se elimina.',en:'Allows removing items from a sale. Refund by original payment method (cash by currency, transfer). Updates subtotal, total, discount, and stock. If the order becomes empty, it is deleted.'}},
-{icon:'💰',name:{es:'Descuento en efectivo',en:'Cash discount'},text:{es:'Porcentaje configurable (0-100%) que se aplica cuando el pago incluye efectivo. Se refleja en el precio unitario de los ítems y en el total de la factura.',en:'Configurable percentage (0-100%) applied when payment includes cash. Reflected in the unit price of items and the invoice total.'}}
-]},
-'admon-4':{
-title:{es:'Gastos: Registro y resumen de gastos operativos',en:'Expenses: Registration and summary of operating expenses'},
-sub:{es:'Módulo "Gastos" del panel admin — control de egresos.',en:'"Expenses" module in the admin panel — expense control.'},
-sections:[
-{icon:'📝',name:{es:'Registro',en:'Record'},text:{es:'Cada gasto tiene categoría, monto, fecha, descripción, método de pago (efectivo/transferencia/tarjeta) y referencia opcional. Se puede filtrar por rango de fechas, categoría, método y búsqueda.',en:'Each expense has category, amount, date, description, payment method (cash/transfer/card), and optional reference. Can be filtered by date range, category, method, and search.'}},
-{icon:'🏷️',name:{es:'Categorías',en:'Categories'},text:{es:'Categorías del sistema (Merma, Pérdida) y personalizadas. Las del sistema se usan para ajustes de inventario y no se pueden eliminar. Las personalizadas sí, solo si no tienen gastos asociados.',en:'System categories (Shrinkage, Loss) and custom ones. System categories are used for inventory adjustments and cannot be deleted. Custom ones can be, only if they have no associated expenses.'}},
-{icon:'📊',name:{es:'Resumen',en:'Summary'},text:{es:'Total gastos, desglose diario/semanal/mensual, distribución por categoría (gráfico doughnut) y comparación con compras. Los gastos de compras se referencian como "Compra X" y no cuentan como gasto operativo.',en:'Total expenses, daily/weekly/monthly breakdown, distribution by category (doughnut chart), and comparison with purchases. Purchase expenses are referenced as "Purchase X" and are not counted as operating expenses.'}},
-{icon:'🔗',name:{es:'Dependencias',en:'Dependencies'},text:{es:'Los gastos de merma/pérdida vinculados a movimientos de inventario revierten stock al eliminarse. El sistema muestra un modal con producto, cantidad y locales afectados antes de confirmar.',en:'Shrinkage/loss expenses linked to inventory movements revert stock when deleted. The system shows a modal with product, quantity, and affected stores before confirming.'}}
-]},
-'admon-5':{
-title:{es:'Inventario: Stock por local, mínimos, alertas y movimientos',en:'Inventory: Stock by store, minimums, alerts, and movements'},
-sub:{es:'Módulo "Inventario" del panel admin — control de stock multi-local.',en:'"Inventory" module in the admin panel — multi-store stock control.'},
-sections:[
-{icon:'👁️',name:{es:'Vista',en:'View'},text:{es:'Inventario por local (filtro) o agregado de todos los locales activos. Muestra producto, costo, precio, stock, stock mínimo, estado (normal/bajo/agotado), valor total y acciones. Permite seleccionar la moneda de visualización.',en:'Inventory by store (filter) or aggregated across all active stores. Shows product, cost, price, stock, minimum stock, status (normal/low/out), total value, and actions. Allows selecting the display currency.'}},
-{icon:'📉',name:{es:'Stock mínimo',en:'Minimum stock'},text:{es:'Configurable por producto. Cuando el stock baja del mínimo se marca "bajo" y se genera alerta. Si llega a 0 se marca "agotado" y el producto se desactiva automáticamente. Se puede editar en la fila y guardar.',en:'Configurable per product. When stock falls below the minimum, it is marked "low" and an alert is generated. If it reaches 0, it is marked "out" and the product is automatically deactivated. Can be edited inline and saved.'}},
-{icon:'🔄',name:{es:'Movimientos',en:'Movements'},text:{es:'Entrada (suma stock), salida (resta), traslado (entre locales) y ajuste (merma, pérdida, devolución al proveedor). Cada movimiento registra stock antes/después, razón, local origen/destino y permite deshacer.',en:'Entry (add stock), exit (subtract), transfer (between stores), and adjustment (shrinkage, loss, supplier return). Each movement records stock before/after, reason, origin/destination store, and can be undone.'}},
-{icon:'↩️',name:{es:'Deshacer movimientos',en:'Undo movements'},text:{es:'Revierte el stock, elimina el movimiento y revierte gastos si aplica. Si proviene de una compra se debe confirmar y se actualiza la compra. Si hay ventas posteriores no se puede deshacer.',en:'Reverts stock, deletes the movement, and reverts expenses if applicable. If it comes from a purchase, it must be confirmed and the purchase is updated. If there are later sales, it cannot be undone.'}},
-{icon:'📤',name:{es:'Exportar',en:'Export'},text:{es:'Inventario a Excel (con estilos y totales) o movimientos a PDF. Se puede filtrar por local y rango de fechas antes de exportar. Usa SheetJS y jsPDF con autoTable.',en:'Inventory to Excel (with styles and totals) or movements to PDF. Can be filtered by store and date range before exporting. Uses SheetJS and jsPDF with autoTable.'}},
-{icon:'🏪',name:{es:'Multi-local',en:'Multi-store'},text:{es:'Cada local tiene su propio stock. El agregado se calcula sumando locales activos. Al mover stock entre locales se actualiza el inventario de origen, destino y el stock global del producto. Se notifica por SSE a cada local.',en:'Each store has its own stock. The aggregate is calculated by summing active stores. Moving stock between stores updates origin, destination, and the product\'s global stock. Each store is notified via SSE.'}}
-]},
-'admon-6':{
-title:{es:'Usuarios: Roles, permisos y control de sesiones',en:'Users: Roles, permissions, and session control'},
-sub:{es:'Módulo "Usuarios" del panel admin — gestión de cuentas y accesos.',en:'"Users" module in the admin panel — account and access management.'},
-sections:[
-{icon:'👥',name:{es:'Usuarios',en:'Users'},text:{es:'Username, nombre completo, teléfono, rol, local asignado, Telegram Chat ID y estado. Roles: superadmin, admin, cajero, proveedor. Cajero y proveedor requieren local asignado.',en:'Username, full name, phone, role, assigned store, Telegram Chat ID, and status. Roles: superadmin, admin, cashier, provider. Cashier and provider require an assigned store.'}},
-{icon:'🔐',name:{es:'Permisos',en:'Permissions'},text:{es:'El superadmin define la plantilla global de secciones permitidas. Cada admin puede tener secciones específicas y modo de acceso (completo/solo lectura). Los admins sin sección "users" no pueden gestionar usuarios.',en:'Superadmin defines the global template of allowed sections. Each admin can have specific sections and access mode (full/read-only). Admins without the "users" section cannot manage users.'}},
-{icon:'🚪',name:{es:'Sesiones',en:'Sessions'},text:{es:'Muestra si el usuario tiene sesión activa y permite forzar cierre. Al forzar, se invalida el token y el usuario debe volver a iniciar sesión. Se notifica vía SSE a todos los admins.',en:'Shows if the user has an active session and allows forcing logout. Forcing invalidates the token and the user must log in again. All admins are notified via SSE.'}},
-{icon:'⚠️',name:{es:'Restricciones',en:'Restrictions'},text:{es:'Un admin no puede editar/eliminar a un superadmin ni asignar rol superadmin. Un admin no puede eliminarse si es el único admin. El superadmin no puede eliminarse a sí mismo. Al eliminar un usuario, sus turnos se reasignan al superadmin.',en:'An admin cannot edit/delete a superadmin nor assign the superadmin role. An admin cannot delete themselves if they are the only admin. Superadmin cannot delete themselves. Deleting a user reassigns their shifts to the superadmin.'}}
-]},
-'admon-7':{
-title:{es:'Sistema: Telegram, WhatsApp, APK y versión de la app',en:'System: Telegram, WhatsApp, APK, and app version'},
-sub:{es:'Módulo "Sistema" del panel admin — configuración global.',en:'"System" module in the admin panel — global configuration.'},
-sections:[
-{icon:'🤖',name:{es:'Telegram',en:'Telegram'},text:{es:'Configuración del bot: nombre, token, chat IDs (múltiples separados por coma) y canal. Al guardar, el bot se reinicia. Muestra estado (activo/inválido/sin configurar) y usuarios vinculados (teléfono, chat ID, órdenes completadas).',en:'Bot configuration: name, token, chat IDs (multiple, comma-separated), and channel. On save, the bot restarts. Shows status (active/invalid/not configured) and linked users (phone, chat ID, completed orders).'}},
-{icon:'📱',name:{es:'WhatsApp',en:'WhatsApp'},text:{es:'Números que se usan en notificaciones tipo "contacto". Se ingresan separados por coma con código de país. Se muestran como botones de contacto en la app cliente.',en:'Numbers used in "contact" type notifications. Entered comma-separated with country code. Displayed as contact buttons in the client app.'}},
-{icon:'📲',name:{es:'APK',en:'APK'},text:{es:'Nombre y ruta del archivo APK para descarga. Contador de descargas visible. La app cliente se actualiza al detectar nueva versión. Endpoint /downloads/apk sirve el archivo.',en:'APK file name and path for download. Visible download counter. The client app updates when a new version is detected. Endpoint /downloads/apk serves the file.'}},
-{icon:'🔢',name:{es:'Versión de la app',en:'App version'},text:{es:'Número de versión que la app cliente compara con la suya para mostrar actualización. Al guardar, se notifica a todos los clientes vía SSE app_version_updated.',en:'Version number compared by the client app against its own to show update prompt. On save, all clients are notified via SSE app_version_updated.'}},
-{icon:'🗄️',name:{es:'Base de datos',en:'Database'},text:{es:'Estado, tipo (Supabase/Local), tamaño y test de conexión. El sistema monitorea la conexión y maneja caídas con reconexión automática. Muestra pg_database_size.',en:'Status, type (Supabase/Local), size, and connection test. The system monitors connection and handles outages with automatic reconnection. Shows pg_database_size.'}},
-{icon:'🖥️',name:{es:'Servidor',en:'Server'},text:{es:'Estado, entorno (producción/desarrollo), URL, uptime, health check y deploy hook de Render. El botón "Reiniciar" dispara el deploy hook configurado.',en:'Status, environment (production/development), URL, uptime, health check, and Render deploy hook. The "Restart" button triggers the configured deploy hook.'}},
-{icon:'💰',name:{es:'Descuento y comisión',en:'Discount and commission'},text:{es:'Descuento en efectivo (0-100%) aplicado a pagos con efectivo. Comisión por transferencia (0-100%) que se descuenta del total de la venta por transferencia. Ambos se emiten por SSE al cambiar.',en:'Cash discount (0-100%) applied to cash payments. Transfer commission (0-100%) subtracted from the total of the transfer sale. Both are emitted via SSE on change.'}}
-]},
-'dep-0':{
-title:{es:'Órdenes: Pedidos online y control de estados',en:'Orders: Online orders and status control'},
-sub:{es:'Dependencia de la app cliente — gestión de pedidos de la tienda online.',en:'Client app dependency — online store order management.'},
-sections:[
-{icon:'📋',name:{es:'Lista',en:'List'},text:{es:'Órdenes online con filtros por estado (pendiente/proceso/enviado/entregado/cancelado), rango de fechas y búsqueda por cliente, teléfono, producto o código. Cada fila muestra ID, fecha, cliente, teléfono, método de pago, total, estado y acciones.',en:'Online orders with filters by status (pending/processing/shipped/delivered/cancelled), date range, and search by customer, phone, product, or code. Each row shows ID, date, customer, phone, payment method, total, status, and actions.'}},
-{icon:'🔄',name:{es:'Estado',en:'Status'},text:{es:'Se cambia desde un select en la fila. Al cambiar, se notifica al cliente por push web + SSE y se actualiza la orden en la app cliente. Cancelar restaura stock; entregar genera movimiento de salida.',en:'Changed from a select in the row. On change, the customer is notified via web push + SSE and the order is updated in the client app. Cancelling restores stock; delivering generates an exit movement.'}},
-{icon:'💵',name:{es:'Totales',en:'Totals'},text:{es:'Ventas, costo y ganancia del período filtrado. Se muestra en la barra de totales de la pestaña lista.',en:'Sales, cost, and profit for the filtered period. Shown in the totals bar of the list tab.'}},
-{icon:'📊',name:{es:'Resumen',en:'Summary'},text:{es:'Conteo por estado, ingresos totales, desglose por método de pago (efectivo/transferencia). Se actualiza al cambiar filtros.',en:'Count by status, total income, payment method breakdown (cash/transfer). Updated when filters change.'}},
-{icon:'⚙️',name:{es:'Configuración',en:'Configuration'},text:{es:'Carrito habilitado/deshabilitado, transferencias habilitadas/deshabilitadas y comisión por transferencia. Se aplica en la app cliente al instante vía SSE.',en:'Cart enabled/disabled, transfers enabled/disabled, and transfer commission. Applied in the client app instantly via SSE.'}},
-{icon:'🚚',name:{es:'Envío',en:'Shipping'},text:{es:'Métodos de envío (nombre, descripción, precio, activo) y zonas de mensajería (lugar, costo, activo). Se usan en el checkout de la app cliente.',en:'Shipping methods (name, description, price, active) and delivery zones (place, cost, active). Used in the client app checkout.'}},
-{icon:'🗑️',name:{es:'Eliminar',en:'Delete'},text:{es:'Elimina la orden permanentemente y restaura el stock de los productos. Registra el movimiento como "Orden #X" para auditoría.',en:'Permanently deletes the order and restores product stock. Records the movement as "Order #X" for auditing.'}}
-]},
-'dep-1':{
-title:{es:'Ofertas: Promociones con productos, precio y vencimiento',en:'Offers: Promotions with products, price, and expiry'},
-sub:{es:'Dependencia de la app cliente — promociones visibles en la tienda online.',en:'Client app dependency — promotions visible in the online store.'},
-sections:[
-{icon:'🎁',name:{es:'CRUD',en:'CRUD'},text:{es:'Título, descripción, precio, imagen procesada en 3 tamaños, fecha/hora de vencimiento (con AM/PM) y productos seleccionados. Los productos seleccionados se marcan con is_offer=true.',en:'Title, description, price, image processed in 3 sizes, expiry date/time (with AM/PM), and selected products. Selected products are marked with is_offer=true.'}},
-{icon:'🔍',name:{es:'Selector de productos',en:'Product selector'},text:{es:'Lista con búsqueda en vivo, checkbox por producto, imagen, categoría y precio. Muestra el conteo y permite quitar desde una lista lateral. Solo productos activos.',en:'List with live search, checkbox per product, image, category, and price. Shows count and allows removal from a side list. Only active products.'}},
-{icon:'⏰',name:{es:'Vencimiento',en:'Expiry'},text:{es:'Al llegar la fecha/hora, la oferta se desactiva automáticamente y los productos se desmarcan como oferta. Los clientes ven solo ofertas activas. El cron del servidor revisa cada 5 minutos.',en:'When the date/time arrives, the offer is automatically deactivated and products are unmarked as offer. Customers only see active offers. The server cron checks every 5 minutes.'}},
-{icon:'🔔',name:{es:'Notificaciones',en:'Notifications'},text:{es:'Al crear o actualizar una oferta activa, se envía notificación a Telegram (bot del admin) y push web a todos los clientes. Incluye título, productos y fecha de vencimiento.',en:'On creating or updating an active offer, a Telegram notification (admin bot) and web push to all customers are sent. Includes title, products, and expiry date.'}},
-{icon:'⚠️',name:{es:'Desactivación automática',en:'Auto-deactivation'},text:{es:'Si algún producto de la oferta se agota o se desactiva, la oferta se desactiva automáticamente para no mostrar productos no disponibles. Si vuelve el stock, se reactiva.',en:'If any product in the offer runs out of stock or is deactivated, the offer is automatically deactivated to avoid showing unavailable products. If stock returns, it is reactivated.'}},
-{icon:'🗑️',name:{es:'Eliminar',en:'Delete'},text:{es:'Elimina la oferta y desmarca los productos como oferta. Si el producto está en otra oferta activa, permanece marcado.',en:'Deletes the offer and unmarks the products as offer. If the product is in another active offer, it remains marked.'}}
-]},
-'dep-2':{
-title:{es:'Horarios: Apertura/cierre y modo forzado de la tienda',en:'Schedules: Opening/closing and forced mode'},
-sub:{es:'Dependencia de la app cliente — estado abierto/cerrado de la tienda.',en:'Client app dependency — store open/closed status.'},
-sections:[
-{icon:'📅',name:{es:'Horario semanal',en:'Weekly schedule'},text:{es:'Por día: hora de apertura, hora de cierre y estado cerrado. Se ingresa en formato 24h pero se muestra en 12h (AM/PM). Se guarda en tabla business_hours (day_of_week 0-6).',en:'Per day: opening time, closing time, and closed status. Entered in 24h format but displayed in 12h (AM/PM). Stored in business_hours table (day_of_week 0-6).'}},
-{icon:'🔒',name:{es:'Modo forzado',en:'Forced mode'},text:{es:'Activa/desactiva manualmente el estado abierto/cerrado independientemente del horario programado. Puede tener fecha/hora de expiración (con AM/PM) o ser indefinido hasta desactivarlo.',en:'Manually activates/deactivates the open/closed status regardless of the scheduled hours. Can have an expiry date/time (with AM/PM) or be indefinite until deactivated.'}},
-{icon:'🕐',name:{es:'Cálculo del estado',en:'Status calculation'},text:{es:'El estado del negocio se calcula con hora de Cuba (con manejo de DST). Se emite por SSE a todos los clientes cuando cambia. La app cliente muestra "Abierto" o "Cerrado" y la próxima apertura.',en:'Store status is calculated using Cuba time (with DST handling). Emitted via SSE to all customers when it changes. The client app shows "Open" or "Closed" and the next opening.'}},
-{icon:'📡',name:{es:'Efectos',en:'Effects'},text:{es:'Al guardar horarios se desactiva el modo forzado. Al guardar modo forzado se recalcula el estado y se notifica a clientes. El cron del servidor revisa cada 5 minutos si el modo forzado expiró.',en:'Saving hours deactivates forced mode. Saving forced mode recalculates status and notifies customers. The server cron checks every 5 minutes whether forced mode expired.'}}
-]},
-'dep-3':{
-title:{es:'Información: Slogan, contacto y enlaces del negocio',en:'Information: Slogan, contact, and business links'},
-sub:{es:'Dependencia de la app cliente — información mostrada en la tienda online.',en:'Client app dependency — information shown in the online store.'},
-sections:[
-{icon:'🏢',name:{es:'Datos del negocio',en:'Business data'},text:{es:'Slogan, descripción, ubicación, horario y contacto. Se guardan en business_info (ID 1). Se muestran en la app cliente en header, footer y sección de contacto.',en:'Slogan, description, location, schedule, and contact. Stored in business_info (ID 1). Shown in the client app in header, footer, and contact section.'}},
-{icon:'🔗',name:{es:'Enlaces personalizados',en:'Custom links'},text:{es:'Nombre, tipo (URL/texto/contacto/correo), valor, orden de aparición y estado activo. Se muestran como botones o enlaces en la app cliente (redes sociales, web, etc.).',en:'Name, type (URL/text/contact/email), value, display order, and active status. Shown as buttons or links in the client app (social media, web, etc.).'}},
-{icon:'✏️',name:{es:'Edición',en:'Editing'},text:{es:'CRUD completo con notificación en tiempo real a los clientes vía SSE business_info_updated y business_links_updated. Los cambios se reflejan sin recargar. Los enlaces inactivos no se muestran.',en:'Full CRUD with real-time notification to customers via SSE business_info_updated and business_links_updated. Changes are reflected without reload. Inactive links are not shown.'}},
-{icon:'✅',name:{es:'Validación',en:'Validation'},text:{es:'El nombre, tipo y valor son obligatorios. El orden define la posición (menor primero). Se recomienda usar URLs completas con https://. Los enlaces se ordenan por sort_order y luego por id.',en:'Name, type, and value are required. Order defines position (lowest first). Full URLs with https:// are recommended. Links are sorted by sort_order and then by id.'}}
-]},
-'dep-4':{
-title:{es:'Notificaciones: Envío de mensajes push a los clientes',en:'Notifications: Sending push messages to customers'},
-sub:{es:'Dependencia de la app cliente — notificaciones mostradas en la tienda online.',en:'Client app dependency — notifications shown in the online store.'},
-sections:[
-{icon:'🎨',name:{es:'Tipos',en:'Types'},text:{es:'info (azul), warning (amarillo), success (verde), error (rojo), contact (botones de WhatsApp). El tipo afecta el color del ícono en la app cliente.',en:'info (blue), warning (yellow), success (green), error (red), contact (WhatsApp buttons). The type affects the icon color in the client app.'}},
-{icon:'⏰',name:{es:'Programación',en:'Scheduling'},text:{es:'Inmediata (si no se elige fecha) o programada con fecha/hora AM/PM. El cron del servidor revisa cada 5 minutos y envía al llegar la hora. Al enviarse, se marca is_sent=true.',en:'Immediate (if no date is chosen) or scheduled with date/time AM/PM. The server cron checks every 5 minutes and sends at the scheduled time. On send, it is marked is_sent=true.'}},
-{icon:'📲',name:{es:'Push web',en:'Web push'},text:{es:'Usa VAPID para enviar notificaciones push a navegadores suscritos (tabla push_subscriptions). Se ejecuta al enviar (inmediata o programada) vía web-push.',en:'Uses VAPID to send web push notifications to subscribed browsers (push_subscriptions table). Executes on send (immediate or scheduled) via web-push.'}},
-{icon:'💬',name:{es:'Tipo contacto',en:'Contact type'},text:{es:'Muestra botones con números de WhatsApp en la app. Los números se seleccionan desde los configurados en Sistema → WhatsApp. Se guardan en phone_numbers como lista separada por comas.',en:'Shows WhatsApp number buttons in the app. Numbers are selected from those configured in System → WhatsApp. Stored in phone_numbers as a comma-separated list.'}},
-{icon:'🚀',name:{es:'Envío manual',en:'Manual send'},text:{es:'Botón "papel" en la tabla para enviar una notificación programada de inmediato. Cambia el estado a enviada y notifica a clientes vía SSE new_notification + push web.',en:'Paper-plane button in the table to send a scheduled notification immediately. Changes status to sent and notifies customers via SSE new_notification + web push.'}},
-{icon:'📊',name:{es:'Estados',en:'Statuses'},text:{es:'Activa/inactiva (si se muestra o no) y enviada/pendiente (si ya se emitió). Solo las activas y enviadas se muestran en la app cliente. Las pendientes se envían cuando llega send_at.',en:'Active/inactive (whether it is shown) and sent/pending (whether it has been emitted). Only active and sent are shown in the client app. Pending ones are sent when send_at arrives.'}}
-]},
-'dep-5':{
-title:{es:'Etiquetas: Destacados, más vendidos, nuevos y en oferta',en:'Tags: Featured, best sellers, new, and on offer'},
-sub:{es:'Dependencia de la app cliente — insignias visibles en la tienda online.',en:'Client app dependency — badges visible in the online store.'},
-sections:[
-{icon:'📊',name:{es:'Estadísticas',en:'Statistics'},text:{es:'Tarjetas con conteo actual de cada etiqueta y cuántos productos son elegibles (50+ likes para destacado, 100+ para más vendido). También muestra nuevos expirados (más de 15 días marcados como nuevos).',en:'Cards with current count of each tag and how many products are eligible (50+ likes for featured, 100+ for best seller). Also shows expired new (over 15 days marked as new).'}},
-{icon:'📋',name:{es:'Tablas por etiqueta',en:'Tables per tag'},text:{es:'Cada etiqueta tiene su tabla con producto, categoría, likes y acciones (editar, quitar). Se puede quitar la etiqueta manualmente con el botón "Quitar".',en:'Each tag has its table with product, category, likes, and actions (edit, remove). The tag can be removed manually with the "Remove" button.'}},
-{icon:'🤖',name:{es:'Cálculo automático',en:'Automatic calculation'},text:{es:'Destacado: 50-99 likes. Más vendido: 100+ likes. Nuevo: menos de 15 días. Oferta: en oferta activa. Se actualiza con el cron del servidor o manualmente desde el panel.',en:'Featured: 50-99 likes. Best seller: 100+ likes. New: under 15 days. Offer: in active offer. Updated by the server cron or manually from the panel.'}},
-{icon:'✂️',name:{es:'Quitar etiqueta',en:'Remove tag'},text:{es:'El botón "Quitar" desactiva la etiqueta del producto. Si vuelve a cumplir condiciones, el sistema puede reasignarla en la próxima actualización automática.',en:'The "Remove" button deactivates the product tag. If conditions are met again, the system can reassign it on the next automatic update.'}}
-]},
-'dep-6':{
-title:{es:'Conexiones: Monitoreo en vivo de clientes conectados',en:'Connections: Live monitoring of connected clients'},
-sub:{es:'Dependencia de la app cliente — monitoreo de clientes, tiendas y admins.',en:'Client app dependency — monitoring of clients, stores, and admins.'},
-sections:[
-{icon:'📊',name:{es:'Contadores',en:'Counters'},text:{es:'Clientes, tiendas (cajeros) y administradores conectados en tiempo real. Se actualiza cada 10 segundos vía polling al endpoint /api/realtime/status.',en:'Clients, stores (cashiers), and administrators connected in real time. Updated every 10 seconds via polling to /api/realtime/status.'}},
-{icon:'👤',name:{es:'Clientes',en:'Clients'},text:{es:'Tabla con dispositivo, tiempo conectado y última actividad (último heartbeat). Detecta clientes activos por SSE con heartbeat cada 30 segundos.',en:'Table with device, connected time, and last activity (last heartbeat). Detects active clients via SSE with heartbeat every 30 seconds.'}},
-{icon:'🏪',name:{es:'Tiendas',en:'Stores'},text:{es:'Tabla con local, cajero y tiempo conectado. Se recibe por evento SSE cashier_connected / cashier_disconnected. Muestra el tiempo desde connectedAt.',en:'Table with store, cashier, and connected time. Received via SSE cashier_connected / cashier_disconnected events. Shows time since connectedAt.'}},
-{icon:'🛡️',name:{es:'Administradores',en:'Administrators'},text:{es:'Tabla con IP, tiempo conectado y estado. Los admins también se registran como conexiones activas al iniciar sesión. Se actualiza por polling.',en:'Table with IP, connected time, and status. Admins are also registered as active connections on login. Updated by polling.'}}
-]},
-'dep-7':{
-title:{es:'Analíticas: Gráficos de ventas y aceptación de productos',en:'Analytics: Sales graphs and product acceptance'},
-sub:{es:'Dependencia de la app cliente — estadísticas detalladas del sistema.',en:'Client app dependency — detailed system statistics.'},
-sections:[
-{icon:'📈',name:{es:'Órdenes por período',en:'Orders by period'},text:{es:'Gráfico de barras comparando online vs física en hoy/semana/mes. Se calcula con hora de Cuba (con DST) en el endpoint /orders-stats. Usa Chart.js.',en:'Bar chart comparing online vs physical for today/week/month. Calculated with Cuba time (with DST) in /orders-stats. Uses Chart.js.'}},
-{icon:'🏷️',name:{es:'Estadísticas de etiquetas',en:'Tag statistics'},text:{es:'Conteo de destacados, más vendidos y nuevos expirados. Se actualiza desde el servidor al pedir estadísticas con /products/insignias-stats.',en:'Count of featured, best sellers, and expired new. Updated from the server when requesting statistics via /products/insignias-stats.'}},
-{icon:'👍',name:{es:'Mayor/menor aceptación',en:'Top/bottom acceptance'},text:{es:'Top 10 de productos por ratio likes/(likes+dislikes) y bottom 10. Solo productos con al menos 1 voto. Colores según aceptación (verde >80%, amarillo 50-80%, rojo <50%).',en:'Top 10 products by ratio likes/(likes+dislikes) and bottom 10. Only products with at least 1 vote. Colors by acceptance (green >80%, yellow 50-80%, red <50%).'}},
-{icon:'🥧',name:{es:'Distribución por categoría',en:'Category distribution'},text:{es:'Gráfico doughnut de productos por categoría. Se calcula en el cliente a partir de los productos cargados. Muestra conteo y porcentaje por categoría.',en:'Doughnut chart of products by category. Calculated on the client from loaded products. Shows count and percentage per category.'}},
-{icon:'📉',name:{es:'Tendencias',en:'Trends'},text:{es:'Gráfico de likes vs dislikes de los top 5 productos. Ayuda a identificar productos con mala recepción. Complementa la tabla de aceptación.',en:'Likes vs dislikes chart for the top 5 products. Helps identify products with poor reception. Complements the acceptance table.'}}
-]}
+'admon-0':{title:{es:'Gestión',en:'Management'},list:{
+es:['<b>Categorías:</b> agrupa los productos por tipo.','<b>Proveedores:</b> datos de contacto de proveedores.','<b>Códigos de barra:</b> busca productos por código.','<b>Tarjetas de pago:</b> tarjetas bancarias para transferencias.','<b>Monedas:</b> configura monedas y tasas de cambio.','<b>Locales:</b> sucursales con inventario propio.'],
+en:['<b>Categories:</b> group products by type.','<b>Suppliers:</b> supplier contact data.','<b>Barcodes:</b> search products by code.','<b>Payment cards:</b> bank cards for transfers.','<b>Currencies:</b> configure currencies and exchange rates.','<b>Stores:</b> branches with their own inventory.']
+}},
+'admon-1':{title:{es:'Productos',en:'Products'},list:{
+es:['<b>Lista de productos:</b> ver, crear y editar productos.','<b>Atributos:</b> características personalizadas por producto.','<b>Códigos de barra:</b> buscar y generar códigos.','<b>Etiquetas:</b> nuevos, ofertas, destacados y más vendidos.'],
+en:['<b>Product list:</b> view, create, and edit products.','<b>Attributes:</b> custom features per product.','<b>Barcodes:</b> search and generate codes.','<b>Tags:</b> new, offers, featured, and best sellers.']
+}},
+'admon-2':{title:{es:'Compras',en:'Purchases'},list:{
+es:['<b>Registrar compras:</b> fecha, proveedor y productos.','<b>Detalle de compra:</b> ver productos y costos.','<b>Filtros:</b> por fecha, proveedor y búsqueda.','<b>Totales:</b> compras, costo e inversión.'],
+en:['<b>Register purchases:</b> date, supplier, and products.','<b>Purchase detail:</b> view products and costs.','<b>Filters:</b> by date, supplier, and search.','<b>Totals:</b> purchases, cost, and investment.']
+}},
+'admon-3':{title:{es:'Ventas',en:'Sales'},list:{
+es:['<b>Lista de ventas:</b> ver y filtrar ventas físicas.','<b>Reportes:</b> detalle de facturas.','<b>Transferencias:</b> ventas por transferencia.','<b>Turnos:</b> apertura y cierre de caja.','<b>Descuento en efectivo:</b> porcentaje configurable.'],
+en:['<b>Sales list:</b> view and filter physical sales.','<b>Reports:</b> invoice detail.','<b>Transfers:</b> sales by transfer.','<b>Shifts:</b> cash opening and closing.','<b>Cash discount:</b> configurable percentage.']
+}},
+'admon-4':{title:{es:'Gastos',en:'Expenses'},list:{
+es:['<b>Lista de gastos:</b> ver y filtrar gastos.','<b>Categorías:</b> gestiona categorías de gastos.','<b>Resumen:</b> totales y gráficos por categoría.'],
+en:['<b>Expense list:</b> view and filter expenses.','<b>Categories:</b> manage expense categories.','<b>Summary:</b> totals and charts by category.']
+}},
+'admon-5':{title:{es:'Inventario',en:'Inventory'},list:{
+es:['<b>Lista de inventario:</b> ver stock por local.','<b>Movimientos:</b> entradas, salidas, traslados y ajustes.','<b>Deshacer movimientos:</b> revertir cambios de stock.','<b>Alertas:</b> stock mínimo y agotado.','<b>Exportar:</b> inventario a Excel y movimientos a PDF.'],
+en:['<b>Inventory list:</b> view stock by store.','<b>Movements:</b> entries, exits, transfers, and adjustments.','<b>Undo movements:</b> revert stock changes.','<b>Alerts:</b> minimum and out of stock.','<b>Export:</b> inventory to Excel and movements to PDF.']
+}},
+'admon-6':{title:{es:'Usuarios',en:'Users'},list:{
+es:['<b>Lista de usuarios:</b> ver y editar usuarios.','<b>Roles:</b> admin, cajero y proveedor.','<b>Permisos:</b> secciones y modo de acceso.','<b>Sesiones:</b> control de sesión activa y forzar cierre.'],
+en:['<b>User list:</b> view and edit users.','<b>Roles:</b> admin, cashier, and provider.','<b>Permissions:</b> sections and access mode.','<b>Sessions:</b> active session control and force logout.']
+}},
+'admon-7':{title:{es:'Sistema',en:'System'},list:{
+es:['<b>Telegram:</b> configuración del bot.','<b>WhatsApp:</b> números de contacto.','<b>APK:</b> descarga de la app.','<b>Versión:</b> número de versión de la app.','<b>Base de datos:</b> estado y tamaño.','<b>Servidor:</b> estado y reinicio.','<b>Descuento y comisión:</b> porcentajes configurables.'],
+en:['<b>Telegram:</b> bot configuration.','<b>WhatsApp:</b> contact numbers.','<b>APK:</b> app download.','<b>Version:</b> app version number.','<b>Database:</b> status and size.','<b>Server:</b> status and restart.','<b>Discount and commission:</b> configurable percentages.']
+}},
+'dep-0':{title:{es:'Órdenes',en:'Orders'},list:{
+es:['<b>Lista de órdenes:</b> ver y filtrar pedidos online.','<b>Estados:</b> pendiente, en proceso, enviado, entregado, cancelado.','<b>Resumen:</b> conteo por estado e ingresos.','<b>Configuración:</b> carrito, transferencias y comisión.','<b>Envío:</b> métodos y zonas de mensajería.'],
+en:['<b>Order list:</b> view and filter online orders.','<b>Statuses:</b> pending, processing, shipped, delivered, cancelled.','<b>Summary:</b> count by status and income.','<b>Configuration:</b> cart, transfers, and commission.','<b>Shipping:</b> methods and delivery zones.']
+}},
+'dep-1':{title:{es:'Ofertas',en:'Offers'},list:{
+es:['<b>Lista de ofertas:</b> ver y editar promociones.','<b>Productos:</b> seleccionar productos en oferta.','<b>Vencimiento:</b> fecha y hora de expiración.','<b>Notificaciones:</b> aviso a clientes al crear oferta.'],
+en:['<b>Offer list:</b> view and edit promotions.','<b>Products:</b> select products on offer.','<b>Expiry:</b> expiration date and time.','<b>Notifications:</b> customer alert on offer creation.']
+}},
+'dep-2':{title:{es:'Horarios',en:'Schedules'},list:{
+es:['<b>Horario semanal:</b> apertura y cierre por día.','<b>Modo forzado:</b> abrir o cerrar manualmente.','<b>Estado del negocio:</b> abierto o cerrado en la app.'],
+en:['<b>Weekly schedule:</b> opening and closing per day.','<b>Forced mode:</b> manually open or close.','<b>Business status:</b> open or closed in the app.']
+}},
+'dep-3':{title:{es:'Información',en:'Information'},list:{
+es:['<b>Datos del negocio:</b> slogan, descripción, ubicación y contacto.','<b>Enlaces personalizados:</b> redes sociales y web.'],
+en:['<b>Business data:</b> slogan, description, location, and contact.','<b>Custom links:</b> social media and web.']
+}},
+'dep-4':{title:{es:'Notificaciones',en:'Notifications'},list:{
+es:['<b>Lista de notificaciones:</b> ver y editar.','<b>Tipos:</b> info, advertencia, éxito, error y contacto.','<b>Programación:</b> envío inmediato o programado.','<b>Tipo contacto:</b> botones de WhatsApp.'],
+en:['<b>Notification list:</b> view and edit.','<b>Types:</b> info, warning, success, error, and contact.','<b>Scheduling:</b> immediate or scheduled send.','<b>Contact type:</b> WhatsApp buttons.']
+}},
+'dep-5':{title:{es:'Etiquetas',en:'Tags'},list:{
+es:['<b>Destacados:</b> productos con 50 o más likes.','<b>Más vendidos:</b> productos con 100 o más likes.','<b>Nuevos:</b> productos con menos de 15 días.','<b>Ofertas:</b> productos en oferta activa.'],
+en:['<b>Featured:</b> products with 50 or more likes.','<b>Best sellers:</b> products with 100 or more likes.','<b>New:</b> products under 15 days.','<b>Offers:</b> products in active offer.']
+}},
+'dep-6':{title:{es:'Conexiones',en:'Connections'},list:{
+es:['<b>Clientes conectados:</b> dispositivos activos.','<b>Tiendas conectadas:</b> cajeros en línea.','<b>Administradores conectados:</b> sesiones activas.'],
+en:['<b>Connected clients:</b> active devices.','<b>Connected stores:</b> online cashiers.','<b>Connected administrators:</b> active sessions.']
+}},
+'dep-7':{title:{es:'Analíticas',en:'Analytics'},list:{
+es:['<b>Órdenes por período:</b> gráfico comparativo.','<b>Estadísticas de etiquetas:</b> conteo actual.','<b>Aceptación:</b> mayor y menor aceptación por producto.','<b>Distribución:</b> productos por categoría.','<b>Tendencias:</b> likes y dislikes de los top 5.'],
+en:['<b>Orders by period:</b> comparison chart.','<b>Tag statistics:</b> current count.','<b>Acceptance:</b> highest and lowest acceptance per product.','<b>Distribution:</b> products by category.','<b>Trends:</b> likes and dislikes of the top 5.']
+}}
 };
 const I18N={
-es:{'hero.badge':'Propuesta de desarrollo','hero.title':'Planilla de <span>requerimientos</span>','hero.lead':'Marca las secciones que necesitas para tu aplicación. Al final podrás revisar tu solicitud, completar tus datos y enviarla al desarrollador.','review.title':'Resumen de tu solicitud','review.sub':'Revisa tu selección. Puedes volver a la planilla para modificarla o continuar con tus datos.','review.back':'← Volver a la planilla','review.next':'Continuar →','data.title':'Datos de contacto','data.sub':'Completa tus datos para enviar la solicitud al desarrollador.','data.back':'← Volver al resumen','btn.cancel':'Cerrar','btn.send':'Confirmar y enviar','mode.hint':'Elige un modo de funcionamiento','mode.a':'Modo A','mode.at':'Solo catálogo','mode.ad':'Muestra productos, precios y ofertas. El cliente contacta por WhatsApp para realizar el pedido.','mode.b':'Modo B','mode.bt':'Catálogo + compras online','mode.bd':'Incluye todo lo del Modo A más carrito de compras, pago y envío a domicilio.','sec.extra':'Peticiones del cliente','sec.extraPh':'Comentarios adicionales','wiz.back':'Atrás','wiz.next':'Siguiente','wiz.finish':'Finalizar','step.admonD':'Elige las funciones de gestión para tu app de escritorio','step.depD':'Elige qué necesita la tienda online del panel de administración','step.modeD':'Define cómo funcionará la tienda para tus clientes','step.comunD':'Funciones que tendrá la tienda en cualquier modo','step.modobD':'Funciones extra para compras online','step.integrD':'Servicios adicionales opcionales','step.extraD':'Cuéntanos cualquier detalle adicional','missing.title':'Faltan puntos obligatorios','missing.sub':'Completa lo siguiente antes de continuar:','missing.go':'Ir al paso faltante','bwHead':'Se detectaron palabras no permitidas','bwViolation':'Contiene palabras no permitidas','done.okTitle':'Solicitud enviada','done.okText':'Tu solicitud llegó al desarrollador por Telegram.','done.failTitle':'Envío manual','done.failText':'El mensaje está copiado. Pégalo en el chat con @wRedFoxw para enviar tu solicitud.','done.openTg':'Abrir Telegram','done.copy':'Copiar solicitud','done.copied':'Copiado ✓','badWords':'Contiene palabras no permitidas','invalidMail':'Correo inválido','toast.copied':'Mensaje copiado al portapapeles','info.btn':'Información detallada'}, en:{'hero.badge':'Development proposal','hero.title':'Requirements <span>sheet</span>','hero.lead':'Select the sections you need for your application. At the end you can review your request, fill in your details and send it to the developer.','review.title':'Request summary','review.sub':'Review your selection. You can go back to the sheet to modify it or continue with your details.','review.back':'← Back to sheet','review.next':'Continue →','data.title':'Contact details','data.sub':'Complete your details to send the request to the developer.','data.back':'← Back to summary','btn.cancel':'Close','btn.send':'Confirm & send','mode.hint':'Choose an operating mode','mode.a':'Mode A','mode.at':'Catalog only','mode.ad':'Shows products, prices and offers. The customer contacts via WhatsApp to place the order.','mode.b':'Mode B','mode.bt':'Catalog + online purchases','mode.bd':'Includes everything from Mode A plus shopping cart, payment and home delivery.','sec.extra':'Client requests','sec.extraPh':'Additional comments','wiz.back':'Back','wiz.next':'Next','wiz.finish':'Finish','step.admonD':'Choose the management features for your desktop app','step.depD':'Choose what the online store needs from the admin panel','step.modeD':'Define how the store will work for your customers','step.comunD':'Features the store will have in any mode','step.modobD':'Extra features for online purchases','step.integrD':'Optional additional services','step.extraD':'Tell us any additional details','missing.title':'Missing required points','missing.sub':'Complete the following before continuing:','missing.go':'Go to missing step','bwHead':'Forbidden words detected','bwViolation':'Contains forbidden words','done.okTitle':'Request sent','done.okText':'Your request reached the developer via Telegram.','done.failTitle':'Manual send','done.failText':'The message is copied. Paste it in the chat with @wRedFoxw to send your request.','done.openTg':'Open Telegram','done.copy':'Copy request','done.copied':'Copied ✓','badWords':'Contains forbidden words','invalidMail':'Invalid email','toast.copied':'Message copied to clipboard','info.btn':'Detailed info'}
+es:{'hero.badge':'Propuesta de desarrollo','hero.title':'Planilla de <span>requerimientos</span>','hero.lead':'Marca las secciones que necesitas para tu aplicación. Al final podrás revisar tu solicitud, completar tus datos y enviarla al desarrollador.','review.title':'Resumen de tu solicitud','review.sub':'Revisa tu selección. Puedes volver a la planilla para modificarla o continuar con tus datos.','review.back':'← Volver a la planilla','review.next':'Continuar →','data.title':'Datos de contacto','data.sub':'Completa tus datos para enviar la solicitud al desarrollador.','data.back':'← Volver al resumen','btn.cancel':'Cerrar','btn.send':'Confirmar y enviar','mode.hint':'Elige un modo de funcionamiento','mode.a':'Modo A','mode.at':'Solo catálogo','mode.ad':'Muestra productos, precios y ofertas. El cliente contacta por WhatsApp para realizar el pedido.','mode.b':'Modo B','mode.bt':'Catálogo + compras online','mode.bd':'Incluye todo lo del Modo A más carrito de compras, pago y envío a domicilio.','sec.extra':'Peticiones del cliente','sec.extraPh':'Comentarios adicionales','wiz.back':'Atrás','wiz.next':'Siguiente','wiz.finish':'Finalizar','step.admonD':'Elige las funciones de gestión para tu app de escritorio','step.depD':'Elige qué necesita la tienda online del panel de administración','step.modeD':'Define cómo funcionará la tienda para tus clientes','step.comunD':'Funciones que tendrá la tienda en cualquier modo','step.modobD':'Funciones extra para compras online','step.integrD':'Servicios adicionales opcionales','step.extraD':'Cuéntanos cualquier detalle adicional','missing.title':'Faltan puntos obligatorios','missing.sub':'Completa lo siguiente antes de continuar:','missing.go':'Ir al paso faltante','bwHead':'Se detectaron palabras no permitidas','bwViolation':'Contiene palabras no permitidas','done.okTitle':'Solicitud enviada','done.okText':'Tu solicitud llegó al desarrollador por Telegram.','done.failTitle':'Envío manual','done.failText':'El mensaje está copiado. Pégalo en el chat con @wRedFoxw para enviar tu solicitud.','done.openTg':'Abrir Telegram','done.copy':'Copiar solicitud','done.copied':'Copiado ✓','badWords':'Contiene palabras no permitidas','invalidMail':'Correo inválido','toast.copied':'Mensaje copiado al portapapeles','info.btn':'Información','info.sub':'Funciones y pestañas disponibles en esta sección.'}, en:{'hero.badge':'Development proposal','hero.title':'Requirements <span>sheet</span>','hero.lead':'Select the sections you need for your application. At the end you can review your request, fill in your details and send it to the developer.','review.title':'Request summary','review.sub':'Review your selection. You can go back to the sheet to modify it or continue with your details.','review.back':'← Back to sheet','review.next':'Continue →','data.title':'Contact details','data.sub':'Complete your details to send the request to the developer.','data.back':'← Back to summary','btn.cancel':'Close','btn.send':'Confirm & send','mode.hint':'Choose an operating mode','mode.a':'Mode A','mode.at':'Catalog only','mode.ad':'Shows products, prices and offers. The customer contacts via WhatsApp to place the order.','mode.b':'Mode B','mode.bt':'Catalog + online purchases','mode.bd':'Includes everything from Mode A plus shopping cart, payment and home delivery.','sec.extra':'Client requests','sec.extraPh':'Additional comments','wiz.back':'Back','wiz.next':'Next','wiz.finish':'Finish','step.admonD':'Choose the management features for your desktop app','step.depD':'Choose what the online store needs from the admin panel','step.modeD':'Define how the store will work for your customers','step.comunD':'Features the store will have in any mode','step.modobD':'Extra features for online purchases','step.integrD':'Optional additional services','step.extraD':'Tell us any additional details','missing.title':'Missing required points','missing.sub':'Complete the following before continuing:','missing.go':'Go to missing step','bwHead':'Forbidden words detected','bwViolation':'Contains forbidden words','done.okTitle':'Request sent','done.okText':'Your request reached the developer via Telegram.','done.failTitle':'Manual send','done.failText':'The message is copied. Paste it in the chat with @wRedFoxw to send your request.','done.openTg':'Open Telegram','done.copy':'Copy request','done.copied':'Copied ✓','badWords':'Contains forbidden words','invalidMail':'Invalid email','toast.copied':'Message copied to clipboard','info.btn':'Information','info.sub':'Available functions and tabs in this section.'}
 };
 const BAD=['mierda','mierdas','puta','puto','putas','putos','putita','putito','cabron','cabrona','cabrones','pendejo','pendeja','pendejos','pendejas','verga','vergudo','chinga','chingar','chingada','chingado','chingon','joder','jodete','jodido','jodida','coño','carajo','marica','maricon','gonorrea','hijueputa','hijoputa','malparido','malparida','culiao','culiada','boludo','boluda','pelotudo','pelotuda','gilipollas','imbecil','estupido','estupida','idiota','pinga','picha','pichula','cagar','cagada','cagon','cagona','mamada','mamadas','culero','culera','fuck','fucking','fucker','shit','shitty','bitch','asshole','bastard','damn','dick','pussy','cunt','whore','slut','nigger','faggot','motherfucker','retard','retarded','sonofabitch'];
 function normalize(s){return String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,' ');}
 function findBadWords(txt){const n=normalize(txt);const f=[];BAD.forEach(w=>{const e=w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');const re=new RegExp('(^|[^a-z0-9])'+e+'([^a-z0-9]|$)','i');if(re.test(n)&&!f.includes(w))f.push(w);});return f;}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function escTG(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-let lang=localStorage.getItem('lang')||'en';
+let lang=localStorage.getItem('lang')||'es';
 const state={step:0,modo:null,selections:{},extra:'',autoSet:{}};
 let firstWizardRender=true;
 const $=s=>document.querySelector(s);
 const $$=s=>Array.from(document.querySelectorAll(s));
 function t(k){return I18N[lang][k]||k;}
+function dt(obj){if(!obj)return '';return obj[lang]||obj.es||'';}
+function dItems(data){if(!data||!data.items)return [];return data.items[lang]||data.items.es||[];}
 function applyAutoLinks(sectionId,index){
 const links=AUTO_LINKS[sectionId];
 if(!links||!links[index])return 0;
@@ -446,8 +386,10 @@ return '😐';
 if(step.id==='mode')return state.modo?'😊':'😐';
 const data=DATA.find(d=>d.id===step.id);
 if(!data)return '😐';
-const sel=(state.selections[step.id]||[]).length,total=data.items.length;
+const itemsList=dItems(data);
+const sel=(state.selections[step.id]||[]).length,total=itemsList.length;
 if(sel===0)return '😐';
+if(total===0)return '😐';
 const pct=sel/total;
 if(pct<=0.34)return '🙂';
 if(pct<=0.67)return '😊';
@@ -463,8 +405,9 @@ return '—';
 if(step.id==='mode')return state.modo?'1/1':'0/1';
 const data=DATA.find(d=>d.id===step.id);
 if(!data)return '—';
+const itemsList=dItems(data);
 const sel=(state.selections[step.id]||[]).length;
-return sel+'/'+data.items.length;
+return sel+'/'+itemsList.length;
 }
 function setFace(el,emoji){
 if(!el||el.textContent===emoji)return;
@@ -483,12 +426,12 @@ if(badge)badge.textContent=getStepBadge(step);
 }
 function visibleSteps(){
 const all=[
-{id:'admon',label:'1',title:DATA[0].t,icon:'💻',desc:t('step.admonD')},
-{id:'dep',label:'1.1',title:DATA[1].t,icon:'🔗',desc:t('step.depD')},
-{id:'mode',label:'2',title:DATA[2].t,icon:'🛒',desc:t('step.modeD')},
-{id:'comun',label:'2.1',title:DATA[3].t,icon:'⚙️',desc:t('step.comunD')},
-{id:'modob',label:'2.2',title:DATA[4].t,icon:'🚚',desc:t('step.modobD'),onlyIf:()=>state.modo==='B'},
-{id:'integr',label:'3',title:DATA[5].t,icon:'🔌',desc:t('step.integrD')},
+{id:'admon',label:'1',title:dt(DATA[0].t),icon:'💻',desc:t('step.admonD')},
+{id:'dep',label:'1.1',title:dt(DATA[1].t),icon:'🔗',desc:t('step.depD')},
+{id:'mode',label:'2',title:dt(DATA[2].t),icon:'🛒',desc:t('step.modeD')},
+{id:'comun',label:'2.1',title:dt(DATA[3].t),icon:'⚙️',desc:t('step.comunD')},
+{id:'modob',label:'2.2',title:dt(DATA[4].t),icon:'🚚',desc:t('step.modobD'),onlyIf:()=>state.modo==='B'},
+{id:'integr',label:'3',title:dt(DATA[5].t),icon:'🔌',desc:t('step.integrD')},
 {id:'extra',label:'4',title:t('sec.extra'),icon:'✍️',desc:t('step.extraD')}
 ];
 return all.filter(s=>!s.onlyIf||s.onlyIf());
@@ -522,14 +465,16 @@ function scrollToWizard(){const el=document.querySelector('.wizard');if(el){cons
 function renderStepContent(step){if(step.id==='mode')return renderModes();if(step.id==='extra')return renderExtra();return renderCheckboxes(step.id);}
 function renderCheckboxes(id){
 const data=DATA.find(d=>d.id===id);
+const itemsList=dItems(data);
 const sel=state.selections[id]||[];
 const auto=state.autoSet[id]||new Set();
 const hasInfo=(id==='admon'||id==='dep');
+const autoTitle=lang==='es'?'Vinculado automáticamente':'Auto-linked';
 let h='<div class="grid">';
-data.items.forEach((it,i)=>{
+itemsList.forEach((it,i)=>{
 const on=sel.includes(i);
 const isAuto=on&&auto.has(i);
-const txtHtml=esc(it)+(isAuto?' <span class="auto-badge" title="Auto-linked">🔗</span>':'');
+const txtHtml=esc(it)+(isAuto?' <span class="auto-badge" title="'+autoTitle+'">🔗</span>':'');
 if(hasInfo){
 h+='<div class="opt opt-has-info'+(on?' on':'')+'">';
 h+='<label class="opt-click"><input type="checkbox" data-s="'+id+'" data-i="'+i+'"'+(on?' checked':'')+'><span class="box"></span><span class="txt">'+txtHtml+'</span></label>';
@@ -616,7 +561,8 @@ if(s.mode)return;
 if(s.id==='modob'&&state.modo!=='B')return;
 const arr=state.selections[s.id]||[];
 if(!arr.length)return;
-h+='<div class="sblock"><b>'+s.n+' · '+esc(s.t)+'</b><div class="chips">'+arr.map(i=>'<span class="chip">'+esc(s.items[i])+'</span>').join('')+'</div></div>';
+const itemsList=dItems(s);
+h+='<div class="sblock"><b>'+s.n+' · '+esc(dt(s.t))+'</b><div class="chips">'+arr.map(i=>'<span class="chip">'+esc(itemsList[i]||'')+'</span>').join('')+'</div></div>';
 });
 if(!h)h='<p class="empty">—</p>';
 return h;
@@ -629,18 +575,12 @@ function renderItemInfo(key){
 const entry=ITEM_INFO[key];
 if(!entry)return;
 const title=entry.title[lang]||entry.title.es;
-const sub=entry.sub[lang]||entry.sub.es;
+const list=entry.list[lang]||entry.list.es;
 $('#infoModalTitle').textContent=title;
-$('#infoModalSub').textContent=sub;
-let h='';
-entry.sections.forEach(sec=>{
-const name=sec.name[lang]||sec.name.es;
-const text=sec.text[lang]||sec.text.es;
-h+='<div class="info-item-card">';
-h+='<div class="info-item-head"><span class="info-item-icon">'+(sec.icon||'ℹ️')+'</span><span class="info-item-title">'+esc(name)+'</span></div>';
-h+='<div class="info-section"><p>'+esc(text)+'</p></div>';
-h+='</div>';
-});
+$('#infoModalSub').textContent=t('info.sub');
+let h='<ul class="info-list">';
+list.forEach(txt=>{h+='<li>'+txt+'</li>';});
+h+='</ul>';
 $('#infoModalBody').innerHTML=h;
 $('#infoModalBody').scrollTop=0;
 openModal('#infoModal');
@@ -658,54 +598,62 @@ else fe.classList.remove('err');
 return ok;
 }
 function collect(){return{nombre:$('#fname').value.trim(),wa:$('#fwa').value.trim(),negocio:$('#fbiz').value.trim(),mail:$('#fmail').value.trim(),modo:state.modo,sel:state.selections,extra:state.extra};}
-function modeText(m){return m==='A'?'Mode A — Catalog only':m==='B'?'Mode B — Catalog + online purchases':'Not specified';}
+function modeText(m){
+const es=m==='A'?'Modo A — Solo catálogo':m==='B'?'Modo B — Catálogo + compras online':'No especificado';
+const en=m==='A'?'Mode A — Catalog only':m==='B'?'Mode B — Catalog + online purchases':'Not specified';
+return lang==='es'?es:en;
+}
 function buildMessageText(d){
-const fecha=new Date().toLocaleString(lang==='es'?'es-419':'en-US');
+const isEs=lang==='es';
+const fecha=new Date().toLocaleString(isEs?'es-419':'en-US');
 let txt='📅 <b>'+escTG(fecha)+'</b>\n\n';
-txt+='📋 <b>NEW DEVELOPMENT REQUEST</b>\n\n';
-txt+='👤 <b>Client:</b> '+escTG(d.nombre)+'\n';
+txt+='📋 <b>'+(isEs?'NUEVA SOLICITUD DE DESARROLLO':'NEW DEVELOPMENT REQUEST')+'</b>\n\n';
+txt+='👤 <b>'+(isEs?'Cliente':'Client')+':</b> '+escTG(d.nombre)+'\n';
 txt+='📱 <b>WhatsApp:</b> '+escTG(d.wa)+'\n';
-txt+='🏢 <b>Business:</b> '+escTG(d.negocio)+'\n';
-if(d.mail)txt+='📧 <b>Email:</b> '+escTG(d.mail)+'\n';
-txt+='\n📝 <b>Selected requirements:</b>\n';
+txt+='🏢 <b>'+(isEs?'Negocio':'Business')+':</b> '+escTG(d.negocio)+'\n';
+if(d.mail)txt+='📧 <b>'+(isEs?'Correo':'Email')+':</b> '+escTG(d.mail)+'\n';
+txt+='\n📝 <b>'+(isEs?'Requerimientos seleccionados':'Selected requirements')+':</b>\n';
 DATA.forEach(s=>{
 if(s.mode){
-txt+='\n<b>'+escTG(s.n+' · '+s.t)+'</b>\n';
-txt+='🛒 <b>Mode:</b> '+modeText(d.modo)+'\n';
+txt+='\n<b>'+escTG(s.n+' · '+dt(s.t))+'</b>\n';
+txt+='🛒 <b>'+(isEs?'Modo':'Mode')+':</b> '+modeText(d.modo)+'\n';
 return;
 }
 if(s.id==='modob'&&d.modo!=='B')return;
 const arr=d.sel[s.id]||[];
 if(!arr.length)return;
-txt+='\n<b>'+escTG(s.n+' · '+s.t)+'</b>\n';
-arr.forEach(i=>{txt+='• '+escTG(s.items[i])+'\n';});
+const itemsList=dItems(s);
+txt+='\n<b>'+escTG(s.n+' · '+dt(s.t))+'</b>\n';
+arr.forEach(i=>{txt+='• '+escTG(itemsList[i]||'')+'\n';});
 });
-if(d.extra)txt+='\n✍️ <b>Client requests:</b>\n'+escTG(d.extra)+'\n';
+if(d.extra)txt+='\n✍️ <b>'+(isEs?'Peticiones del cliente':'Client requests')+':</b>\n'+escTG(d.extra)+'\n';
 if(txt.length>4000)txt=txt.slice(0,3990)+'...';
 return txt;
 }
 function buildPlainText(d){
-const fecha=new Date().toLocaleString(lang==='es'?'es-419':'en-US');
+const isEs=lang==='es';
+const fecha=new Date().toLocaleString(isEs?'es-419':'en-US');
 let txt='📅 '+fecha+'\n\n';
-txt+='📋 NEW DEVELOPMENT REQUEST\n\n';
-txt+='👤 Client: '+d.nombre+'\n';
+txt+='📋 '+(isEs?'NUEVA SOLICITUD DE DESARROLLO':'NEW DEVELOPMENT REQUEST')+'\n\n';
+txt+='👤 '+(isEs?'Cliente':'Client')+': '+d.nombre+'\n';
 txt+='📱 WhatsApp: '+d.wa+'\n';
-txt+='🏢 Business: '+d.negocio+'\n';
-if(d.mail)txt+='📧 Email: '+d.mail+'\n';
-txt+='\n📝 Selected requirements:\n';
+txt+='🏢 '+(isEs?'Negocio':'Business')+': '+d.negocio+'\n';
+if(d.mail)txt+='📧 '+(isEs?'Correo':'Email')+': '+d.mail+'\n';
+txt+='\n📝 '+(isEs?'Requerimientos seleccionados':'Selected requirements')+':\n';
 DATA.forEach(s=>{
 if(s.mode){
-txt+='\n['+s.n+' · '+s.t+']\n';
-txt+='🛒 Mode: '+modeText(d.modo)+'\n';
+txt+='\n['+s.n+' · '+dt(s.t)+']\n';
+txt+='🛒 '+(isEs?'Modo':'Mode')+': '+modeText(d.modo)+'\n';
 return;
 }
 if(s.id==='modob'&&d.modo!=='B')return;
 const arr=d.sel[s.id]||[];
 if(!arr.length)return;
-txt+='\n['+s.n+' · '+s.t+']\n';
-arr.forEach(i=>{txt+='• '+s.items[i]+'\n';});
+const itemsList=dItems(s);
+txt+='\n['+s.n+' · '+dt(s.t)+']\n';
+arr.forEach(i=>{txt+='• '+(itemsList[i]||'')+'\n';});
 });
-if(d.extra)txt+='\n✍️ Client requests:\n'+d.extra+'\n';
+if(d.extra)txt+='\n✍️ '+(isEs?'Peticiones del cliente':'Client requests')+':\n'+d.extra+'\n';
 return txt;
 }
 async function sendTelegramMessage(d){
